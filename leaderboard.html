@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstralyxPvP | Leaderboard</title>
+  <link rel="stylesheet" href="Style/style.css">
+  <link rel="icon" type="image/png" href="Assets/logo.png">
+</head>
+<body class="page-enter">
+
+  <nav>
+    <div class="nav-left">
+      <div class="logo">
+        <img src="Assets/logo.png" alt="AstralyxPvP Logo">
+        <span>Astralyx<span>PvP</span></span>
+      </div>
+      <div id="nav-status" class="server-pill offline">🔴 Offline</div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="leaderboard.html" class="active">Leaderboard</a>
+      <a href="rules.html">Rules</a>
+      <a href="apply.html">Join Team</a>
+      <a href="vote.html">Vote</a>
+      <a href="store.html" target="_blank" class="nav-cta">
+        <i class="fa-solid fa-cart-shopping"></i>&nbsp;Store
+      </a>
+    </div>
+  </nav>
+
+  <div class="page-content">
+    <section class="lb-section">
+      <h1 class="section-title">Global <span style="color:var(--primary)">Leaderboard</span></h1>
+      <p class="lb-subtitle">Choose a gamemode to view the live ELO ladder.</p>
+      
+      <div class="lb-panel">
+        <div class="controls">
+          <select id="gm"><option value="macepvpffa1">macepvpffa1</option><option value="netheritepotffa1">netheritepotffa1</option><option value="swordffa1">swordffa1</option></select>
+          <button class="hero-btn mini" onclick="refreshLB()">
+            <i class="fa-solid fa-rotate"></i> Refresh
+          </button>
+        </div>
+
+        <div id="lb" class="table-container">
+          <div class="loading">Loading players...</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+    <footer>
+    <div class="footer-top">
+        <img src="Assets/logo.png" alt="NebulaGames" style="height: 30px; opacity: 0.6; margin-bottom: 10px;">
+        <p>© 2026 NebulaGames. All rights reserved.</p>
+        <p>We are not affiliated with Mojang or Minecraft</p>
+    </div>
+    <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+    </div>
+    
+    <p class="credits">
+        Made by <a href="mailto:indiancoder3@hotmail.com">IndianCoder3</a> (ft. <a href="index.html">AstralyxPvP</a>)
+    </p>
+    </footer>
+
+  <script src="Script/script.js"></script>
+</body>
+</html>
