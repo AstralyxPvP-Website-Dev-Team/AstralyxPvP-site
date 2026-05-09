@@ -13,7 +13,12 @@
   --font-reading: 'Lora', serif;
 }
 .page-content{flex:1}
-
+.subtitle{text-align:center;color:var(--muted);margin-bottom:26px}
+.wrap{padding:54px 7% 66px}
+.title{
+  text-transform:uppercase;letter-spacing:.16em;font-weight:800;
+  font-size:1.9rem;text-align:center;margin-bottom:10px;
+}
 .panel{
   background:
   radial-gradient(circle at top left, rgba(255,85,45,.16), rgba(6,2,4,.86) 52%),
