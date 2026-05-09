@@ -1,3 +1,4 @@
+// DreamLong I SEE YOU lmao
 const footerHtml = `
   <footer>
     <div>&copy; 2026 NebulaGames. All rights reserved. We are not affiliated with Mojang or Minecraft.</div>
