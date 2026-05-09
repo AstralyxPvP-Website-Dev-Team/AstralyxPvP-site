@@ -1,0 +1,187 @@
+const footerHtml = `
+  <footer>
+    <div>&copy; 2026 NebulaGames. All rights reserved. We are not affiliated with Mojang or Minecraft.</div>
+    <div class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms & Conditions</a>
+      <a href="/credits">Credits</a>
+    </div>
+  </footer>
+`;
+
+const html = `<!doctype html><html lang="en"><head><title>Terms & Conditions | AstralyxPvP</title>${sharedHead}</head><body>
+${navHtml("terms")}
+<div class="page-content"><div class="wrap">
+<div class="title">Terms <span style="color:var(--primary-soft)">& Conditions</span></div>
+<div class="subtitle">Effective Date: April 30th, 2026 | Last Updated: May 1st, 2026</div>
+<div class="panel">
+  <div class="doc-block">
+    <p>Welcome to AstralyxPvP. By accessing or using our servers, services, and website, you agree to these Terms of Service. Please read them carefully.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>Independent Community Project</h3>
+    <p>AstralyxPvP is an independently operated community gaming project and online server network. AstralyxPvP is not currently a registered company, corporation, or formal business entity unless otherwise stated in the future.</p>
+    <p>AstralyxPvP is created and maintained for entertainment, competition, and community purposes.</p>
+    <p>Plain language: We are a community-run server project, not a registered company.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>NebulaGames Studio Disclaimer</h3>
+    <p>AstralyxPvP is a project developed under NebulaGames, an independent, hobbyist game development studio.</p>
+    <p>NebulaGames is not a registered company, corporation, or legal entity at this time and operates as a personal and community-driven creative project.</p>
+    <p>All NebulaGames projects, including AstralyxPvP, are developed for entertainment and non-commercial purposes unless stated otherwise in the future.</p>
+    <p>For more info, you can visit the NebulaGames Website: <a href="https://nebulagames.craftingstore.net/" target="_blank" style="color:var(--accent)">https://nebulagames.craftingstore.net/</a></p>
+    <p>Plain language: NebulaGames is a small hobby studio, not an official company.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>1. Acceptance of Terms</h3>
+    <p>By using AstralyxPvP, you agree to follow these Terms and all server rules. If you do not agree, you must stop using our servers and services.</p>
+    <p>Plain language: If you play on our servers, you agree to our rules. If you do not want to follow them, do not use the network.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>2. Accounts and Security</h3>
+    <p>You must provide accurate information when creating or using an account.</p>
+    <p>You are responsible for keeping your account secure.</p>
+    <p>Sharing accounts is not allowed unless we explicitly permit it.</p>
+    <p>Plain language: Keep your account information correct and secure. You are responsible for activity on your account.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>3. Rules of Conduct</h3>
+    <p>You may not:</p>
+    <ul>
+      <li>hack, cheat, use bots, macros, or exploit bugs;</li>
+      <li>harass, threaten, scam, or discriminate against others;</li>
+      <li>spam chat, advertise other servers, or post illegal content;</li>
+      <li>attempt to gain unauthorized access to the network;</li>
+      <li>interfere with the experience or safety of other players.</li>
+    </ul>
+    <p>Plain language: Be respectful, do not cheat, do not spam, and do not try to break into our servers.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>4. Purchases and Virtual Items</h3>
+    <p>All items, ranks, cosmetics, boosters, and any other in-game content on AstralyxPvP are free and have no real-world value.</p>
+    <p>Virtual items cannot be traded, sold, or exchanged for real money inside or outside of AstralyxPvP.</p>
+    <p>We may change, remove, or reset in-game content at any time.</p>
+    <p>Plain language: Everything in the server is for fun only. It has no cash value.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>5. Moderation and Bans</h3>
+    <p>Staff may warn, mute, kick, or ban players who break the rules.</p>
+    <p>Bans may be temporary or permanent depending on the offense.</p>
+    <p>Attempting to bypass a ban using alternate accounts, VPNs, or other methods may result in stronger punishments.</p>
+    <p>Plain language: If you break the rules, staff can punish you. Trying to get around a ban can make things worse.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>6. Content</h3>
+    <p>You may not upload, post, or share offensive, illegal, or inappropriate content on AstralyxPvP.</p>
+    <p>We may remove any content at any time at our discretion.</p>
+    <p>Plain language: Do not post harmful or illegal stuff. We can remove content if needed.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>7. Privacy</h3>
+    <p>We may collect basic information needed to run the network, protect accounts, prevent abuse, and improve services.</p>
+    <p>We do not sell your personal information to third parties.</p>
+    <p>By using AstralyxPvP, you agree to our Privacy Policy.</p>
+    <p>Plain language: We use some data to keep the server safe and working, but we do not sell your info.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>8. Disclaimers</h3>
+    <p>AstralyxPvP is provided “as is” and “as available” without guarantees of uptime, performance, or uninterrupted access.</p>
+    <p>We are not responsible for lost items, lost progress, account misuse, or service interruptions to the extent allowed by law.</p>
+    <p>Plain language: Sometimes servers have problems, and we are not responsible for every issue that happens.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>9. Changes to These Terms</h3>
+    <p>AstralyxPvP may update these Terms at any time.</p>
+    <p>If you continue using the network after changes are posted, you agree to the updated Terms.</p>
+    <p>Plain language: We can update the rules. Keep checking them.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>10. No Purchase Policy</h3>
+    <p>AstralyxPvP is completely free to play.</p>
+    <p>There are no paid ranks, cosmetics, boosters, or virtual items for sale unless we clearly state otherwise in the future.</p>
+    <p>Any future purchases, if ever offered, will be described separately and clearly.</p>
+    <p>Because the network is free-to-play, refunds, chargebacks, and payment disputes do not apply unless a paid service is ever introduced.</p>
+    <p>Plain language: You can enjoy the server without paying anything.</p>
+  </div>
+
+   <div class="doc-block">
+    <h3>11. Intellectual Property & Copyright</h3>
+    <p>All original content related to AstralyxPvP, including server concepts, gameplay systems, configurations, text, graphics, plugins, scripts, and website content that we created or lawfully licensed, belongs to AstralyxPvP or its respective owners.</p>
+    <p>You may not copy, reproduce, redistribute, or use our original content without written permission.</p>
+    <p>If you submit content to AstralyxPvP, you confirm that you have the right to share it.</p>
+    <p>Plain language: Please do not copy our work or use it without permission.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>12. No Gambling or Paid Lotteries</h3>
+    <p>AstralyxPvP does not allow gambling, wagering, paid lotteries, or any game of chance where money or valuable consideration is risked for a prize.</p>
+    <p>All giveaways, rewards, and events on AstralyxPvP must be free and voluntary.</p>
+    <p>Any event that could be considered gambling or a paid chance-based activity is not allowed.</p>
+    <p>Plain language: No betting, no paid raffle-style systems, and no gambling.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>13. Age and Permission</h3>
+    <p>If you are under the age required by your local law, you must have permission from a parent or guardian to use AstralyxPvP.</p>
+    <p>Plain language: Make sure you are allowed to use the network where you live.</p>
+  </div>
+
+  <div class="doc-block">
+    <h3>14. Contact</h3>
+    <p>If you have questions about these Terms, contact us at: <strong>astralyxnetwork@gmail.com</strong></p>
+  </div>
+  <div class="doc-block">
+    <h3>15. Governing Law</h3>
+    <p>These Terms are governed by and interpreted in accordance with the laws of the United Arab Emirates. Any disputes arising from these Terms shall be subject to the jurisdiction of the courts of the UAE.</p>
+  </div>
+</div>
+</div></div></body></html>`;
+
+const navHtml = (active) => `
+  <nav>
+    <div class="logo">
+      <img src="assets/logo.png" alt="AstralyxPvP Logo" onerror="this.style.display='none'">
+      <span>Astralyx<span>PvP</span></span>
+    </div>
+    <div class="nav-right">
+      <div id="nav-status" class="server-pill">Checking...</div>
+      <div class="nav-links">
+        <a href="/" class="${active === "home" ? "active" : ""}">Home</a>
+        <a href="/leaderboard" class="${active === "lb" ? "active" : ""}">Leaderboard</a>
+        <a href="/rules" class="${active === "rules" ? "active" : ""}">Rules</a>
+        <a href="/vote" class="${active === "vote" ? "active" : ""}">Vote</a>
+        <a href="/staff-requirements" class="${active === "staffreq" ? "active" : ""}">Staff Req</a>
+        <a href="/privacy" class="${active === "privacy" ? "active" : ""}">Privacy</a>
+        <a href="/terms" class="${active === "terms" ? "active" : ""}">Terms</a>
+        <a href="/store" target="_blank" class="nav-cta"><i class="fa-solid fa-cart-shopping"></i>&nbsp;Store</a>
+      </div>
+    </div>
+  </nav>
+`;
+
+  const sharedHead = `
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="4NOsUWgIermw9UdjmPK-4c6ahx2BVybhWSsdSVUbuKc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ff4b2b">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="AstralyxPvP" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+`;
