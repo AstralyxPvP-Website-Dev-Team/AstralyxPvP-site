@@ -1046,3 +1046,43 @@ footer::before {
     padding: 10px;
   }
 }
+.context-menu {
+    position: fixed;
+    z-index: 90;
+    display: none;
+    width: 230px;
+    padding: 0.45rem;
+    border: 1px solid rgba(255, 75, 43, 0.3);
+    border-radius: 18px;
+    background: rgba(8, 4, 10, 0.84);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(20px);
+}
+
+.context-menu.show {
+    display: block;
+    animation: menuIn 220ms var(--ease) both;
+}
+
+.context-menu button,
+.context-menu a {
+   display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 0.72rem;
+    padding: 0.78rem 0.85rem;
+    border: 0;
+    border-radius: 12px;
+    color: var(--text);
+    background: transparent;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 260ms var(--ease), color 260ms var(--ease);
+}
+
+.context-menu button:hover,
+.context-menu a:hover {
+    color: var(--accent);
+    background: rgba(255, 75, 43, 0.13);
+}

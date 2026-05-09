@@ -1,7 +1,7 @@
 /* ======================================
    ASTRALYXPVP JAVASCRIPT
    ====================================== */
-const API_BASE = "https://astralyxpvp.pages.dev/api/";
+const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
 // ======== HOME PAGE - IP COPY FUNCTION ========
 function copyIP(){
   const ip = document.getElementById('server-ip').innerText;
@@ -159,3 +159,43 @@ setInterval(updateNavStatus, 20000);
     setTimeout(() => { window.location.href = href; }, 180);
   });
 })();
+
+const contextMenu = document.getElementById("contextMenu");
+
+// Standard Copy function
+function copyServerIp() {
+    const ip = document.getElementById('server-ip').innerText;
+    navigator.clipboard.writeText(ip).then(() => {
+        alert("IP Copied!");
+    });
+}
+
+// Positioning logic (Keep your original code here)
+function positionContextMenu(event) {
+    event.preventDefault();
+    const menuWidth = 230;
+    const menuHeight = 230;
+    const left = Math.min(event.clientX, window.innerWidth - menuWidth - 12);
+    const top = Math.min(event.clientY, window.innerHeight - menuHeight - 12);
+
+    contextMenu.style.left = left + "px";
+    contextMenu.style.top = top + "px";
+    contextMenu.classList.add("show");
+    contextMenu.setAttribute("aria-hidden", "false");
+}
+
+function hideContextMenu() {
+    contextMenu.classList.remove("show");
+    contextMenu.setAttribute("aria-hidden", "true");
+}
+
+// Event Listeners
+document.addEventListener("contextmenu", positionContextMenu);
+document.addEventListener("click", e => {
+    if (!contextMenu.contains(e.target)) hideContextMenu();
+});
+
+// Copy Button Listener
+document.querySelectorAll("[data-menu-copy]").forEach(btn => {
+    btn.addEventListener("click", copyServerIp);
+});
