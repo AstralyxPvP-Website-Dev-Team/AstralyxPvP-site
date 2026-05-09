@@ -674,6 +674,11 @@ td {
   transition: 0.4s ease;
 }
 
+.doc-container:nth-child(1) { animation-delay: 0.2s; }
+.doc-container:nth-child(2) { animation-delay: 0.35s; }
+.doc-container:nth-child(3) { animation-delay: 0.5s; }
+.doc-container:nth-child(4) { animation-delay: 0.65s; }
+
 .doc-container:hover {
   border-color: var(--accent);
   box-shadow: 0 0 30px rgba(255,215,0,0.08);
