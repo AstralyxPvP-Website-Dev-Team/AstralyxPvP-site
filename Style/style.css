@@ -20,9 +20,11 @@
   font-size:1.9rem;text-align:center;margin-bottom:10px;
 }
 
-ul {
-  list-style-position: outside; 
-  margin-bottom: 1rem;
+#list {
+  list-style-position: inside;
+  padding: 0;
+  text-align: left;
+  padding-left: 1.5rem;
 }
 li {
   margin-bottom: 0.5rem;
@@ -36,7 +38,7 @@ li {
   box-shadow:0 0 40px rgba(0,0,0,.58);
   padding:22px;
 }
-.doc-block{margin-bottom:16px;padding:14px;border:1px solid rgba(255,110,70,.2);border-radius:12px;background:rgba(7,2,5,.55)}
+.doc-block{margin-bottom:16px;padding:14px;border:1px solid rgba(255,110,70,.2);border-radius:12px;background:rgba(7,2,5,.55);text-align: left;}
 .doc-block h3{margin-bottom:8px;color:#ffc184;font-size:.95rem;letter-spacing:.08em}
 * {
   box-sizing: border-box;
