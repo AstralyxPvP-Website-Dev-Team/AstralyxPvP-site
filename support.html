@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support | AstralyxPvP</title>
+  <link rel="stylesheet" href="Style/style.css">
+  <link rel="icon" type="image/png" href="Assets/logo.png">
+  <style>
+    .support-section {
+      padding: 80px 9%;
+      text-align: center;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .support-container {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 60px 40px;
+      backdrop-filter: blur(10px);
+      max-width: 700px;
+      width: 100%;
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .support-icon {
+      font-size: 5rem;
+      margin-bottom: 20px;
+    }
+
+    .support-title {
+      font-family: var(--font-elegant);
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .support-subtitle {
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .support-message {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .support-info-box {
+      background: rgba(200, 16, 46, 0.1);
+      border-left: 3px solid var(--primary);
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .info-item {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .info-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-item i {
+      color: var(--accent);
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .discord-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #5865F2, #4752C4);
+      color: #fff;
+      padding: 18px 40px;
+      border-radius: 999px;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      border: 1px rgba(255, 255, 255, 0.5);
+      box-shadow: 0 0 25px rgba(88, 101, 242, 0.5);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .discord-button:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(88, 101, 242, 0.4), 0 0 50px rgba(88, 101, 242, 0.2);
+    }
+
+    .discord-button:active {
+      transform: translateY(-2px) scale(0.98);
+    }
+  </style>
+</head>
+<body class="page-enter">
+
+  <nav>
+    <div class="nav-left">
+      <div class="logo">
+        <img src="Assets/logo.png" alt="AstralyxPvP Logo">
+        <span>Astralyx<span>PvP</span></span>
+      </div>
+      <div id="nav-status" class="server-pill offline">🔴 Offline</div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="rules.html">Rules</a>
+      <a href="apply.html">Join Team</a>
+      <a href="status.html">Status</a>
+      <a href="vote.html">Vote</a>
+      <a href="support.html" class="active">Support</a>
+      <a href="store.html" target="_blank" class="nav-cta">
+        <i class="fa-solid fa-cart-shopping"></i>&nbsp;Store
+      </a>
+    </div>
+  </nav>
+
+  <div class="page-content">
+    <section class="support-section">
+      <div class="support-container">
+        <div class="support-icon">
+          <i class="fa-solid fa-headset" style="color: var(--accent);"></i>
+        </div>
+        <h1 class="support-title">Need <span style="color:var(--primary)">Support?</span></h1>
+        <p class="support-subtitle">We're Here to Help</p>
+        
+        <p class="support-message">
+          Have a question, issue, or need assistance? Our support team is ready to help you on Discord. Whether it's about gameplay, accounts, ranks, or general inquiries, join our community and get answers fast!
+        </p>
+
+        <div class="support-info-box">
+          <div class="info-item">
+            <i class="fa-solid fa-clock"></i>
+            <span>Active support during regular hours on Discord</span>
+          </div>
+          <div class="info-item">
+            <i class="fa-solid fa-users"></i>
+            <span>Friendly community of players and staff members</span>
+          </div>
+          <div class="info-item">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Fast response times to your queries</span>
+          </div>
+          <div class="info-item">
+            <i class="fa-solid fa-shield"></i>
+            <span>Safe and moderated environment</span>
+          </div>
+        </div>
+
+        <a href="https://discord.gg/u8BFrpRwEg" target="_blank" class="discord-button">
+          <i class="fa-brands fa-discord"></i> Join Discord
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+        <img src="Assets/logo.png" alt="NebulaGames" style="height: 30px; opacity: 0.6; margin-bottom: 10px;">
+        <p>© 2026 NebulaGames. All rights reserved.</p>
+        <p>We are not affiliated with Mojang or Minecraft</p>
+    </div>
+    <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="credits-web.html">Credits</a>
+    </div>
+  </footer>
+
+  <script src="Script/script.js"></script>
+
+</body>
+</html>

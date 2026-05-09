@@ -2,13 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Playfair+Display:wght@400;800&display=swap');
 
 :root {
-  --primary: #FF3C00;
-  --primary-soft: #D32F00;
+  --primary: #C8102E;
+  --primary-soft: #8B0000;
   --accent: #FFD700;
-  --dark: #0A0402;           
-  --text: #FFF5F0;
-  --muted: #8B736B;
-  --border: rgba(255, 60, 0, 0.3);
+  --dark: #000000;           
+  --text: #FFFFFF;
+  --muted: #CCCCCC;
+  --border: rgba(200, 16, 46, 0.3);
   --font-elegant: 'Playfair Display', serif;
   --font-reading: 'Lora', serif;
 }
@@ -20,14 +20,14 @@ body {
   display: flex;
   flex-direction: column;
   font-family: var(--font-reading);
-  background: radial-gradient(circle at top, #2B0B02 0%, #0A0402 60%, #000 100%);
+  background: radial-gradient(circle at top, #1a0000 0%, #000000 60%, #000 100%);
   color: var(--text);
   overflow-x: hidden;
 }
 
 /* NAVIGATION */
 nav {
-  background: rgba(10, 5, 5, 0.98);
+  background: rgba(0, 0, 0, 0.98);
   padding: 16px 9%;
   display: flex;
   justify-content: space-between;
@@ -207,7 +207,7 @@ nav {
 }
 
 .feature-card {
-  background: rgba(15, 5, 5, 0.6);
+  background: rgba(0, 0, 0, 0.6);
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 35px 25px;
@@ -268,7 +268,7 @@ nav {
 .lb-subtitle { color: var(--muted); margin-bottom: 30px; margin-top: -30px; }
 
 .lb-panel {
-  background: rgba(15, 5, 5, 0.6);
+  background: rgba(0, 0, 0, 0.6);
   border: 1px solid var(--border);
   border-radius: 20px;
   padding: 30px;
@@ -325,7 +325,7 @@ td { padding: 15px; border-bottom: 1px solid rgba(255, 60, 0, 0.1); }
 
 /* FOOTER */
 footer {
-  background: #050204;
+  background: #000000;
   padding: 40px 9%;
   text-align: center;
   border-top: 1px solid var(--border);
@@ -336,6 +336,32 @@ footer {
 
 .credits { margin-top: 25px; font-size: 0.6rem; color: #777; letter-spacing: 1px; }
 .credits a { color: var(--accent); text-decoration: none; font-weight: 700; }
+
+/* VOTE PAGE */
+.vote-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.vote-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text);
+  border: 1px solid rgba(255, 110, 70, 0.35);
+  background: linear-gradient(145deg, rgba(255, 90, 50, 0.16), rgba(10, 3, 7, 0.7));
+  transition: 0.2s;
+}
+
+.vote-link:hover {
+  border-color: rgba(255, 180, 90, 0.7);
+  transform: translateY(-1px);
+}
 
 @media (max-width: 900px) {
   nav { flex-direction: column; gap: 15px; }

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Server Status | AstralyxPvP</title>
+  <link rel="stylesheet" href="Style/style.css">
+  <link rel="icon" type="image/png" href="Assets/logo.png">
+  <style>
+    .status-section {
+      padding: 80px 9%;
+      text-align: center;
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .status-container {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 60px 40px;
+      backdrop-filter: blur(10px);
+      max-width: 600px;
+      width: 100%;
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .status-badge {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .status-title {
+      font-family: var(--font-elegant);
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .status-message {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .status-details {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+    }
+
+    .online {
+      color: #00ff44;
+    }
+
+    .offline {
+      color: var(--primary);
+    }
+
+    .maintenance {
+      color: var(--accent);
+    }
+
+    .status-info {
+      background: rgba(200, 16, 46, 0.1);
+      border-left: 3px solid var(--primary);
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .info-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-label {
+      color: var(--muted);
+    }
+
+    .info-value {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .pulse-dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 8px;
+      animation: pulseDot 1.5s ease-in-out infinite;
+    }
+
+    .pulse-dot.online {
+      background: #00ff44;
+      box-shadow: 0 0 10px #00ff44;
+    }
+
+    .pulse-dot.offline {
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .pulse-dot.maintenance {
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body class="page-enter">
+
+  <nav>
+    <div class="nav-left">
+      <div class="logo">
+        <img src="Assets/logo.png" alt="AstralyxPvP Logo">
+        <span>Astralyx<span>PvP</span></span>
+      </div>
+      <div id="nav-status" class="server-pill offline">🔴 Offline</div>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="rules.html">Rules</a>
+      <a href="apply.html">Join Team</a>
+      <a href="status.html" class="active">Status</a>
+      <a href="vote.html">Vote</a>
+      <a href="support.html">Support</a>
+      <a href="store.html" target="_blank" class="nav-cta">
+        <i class="fa-solid fa-cart-shopping"></i>&nbsp;Store
+      </a>
+    </div>
+  </nav>
+
+  <div class="page-content">
+    <section class="status-section">
+      <div class="status-container">
+        <div class="status-badge" id="status-badge">🔴</div>
+        <h1 class="status-title">Server Status</h1>
+        <p class="status-message" id="status-message">Loading...</p>
+        <div class="status-details" id="status-details">
+          Checking server status...
+        </div>
+        <div class="status-info" id="status-info" style="display: none;">
+          <div class="info-row">
+            <span class="info-label">Status:</span>
+            <span class="info-value"><span class="pulse-dot" id="pulse-indicator"></span><span id="status-indicator">Unknown</span></span>
+          </div>
+          <div class="info-row" id="maintenance-row" style="display: none;">
+            <span class="info-label">Maintenance Expected End:</span>
+            <span class="info-value" id="maintenance-info">N/A</span>
+          </div>
+          <div class="info-row" id="players-row" style="display: none;">
+            <span class="info-label">Players Online:</span>
+            <span class="info-value" id="players-info">N/A</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // ======== STATUS PAGE - SERVER STATUS LOADER ========
+    // YAML Data embedded directly (example: maintenance: yes, maintenance-expected-end: 7)
+    const yamlData = {
+      'maintainence': 'yes',
+      'maintainence-expected-end': ''
+    };
+
+    async function loadServerStatus() {
+      const statusMessage = document.getElementById('status-message');
+      const statusDetails = document.getElementById('status-details');
+      const statusBadge = document.getElementById('status-badge');
+      const statusInfo = document.getElementById('status-info');
+      const statusIndicator = document.getElementById('status-indicator');
+      const pulseIndicator = document.getElementById('pulse-indicator');
+      const maintenanceRow = document.getElementById('maintenance-row');
+      const maintenanceInfo = document.getElementById('maintenance-info');
+      const playersRow = document.getElementById('players-row');
+      const playersInfo = document.getElementById('players-info');
+
+      try {
+        const isMaintenance = (yamlData['maintainence'] || '').toLowerCase() === 'yes';
+        const expectedEndRaw = (yamlData['maintainence-expected-end'] || '').trim();
+        const expectedDays = parseInt(expectedEndRaw || '0');
+
+        statusInfo.style.display = 'block';
+
+        if (isMaintenance) {
+          // Server is in maintenance mode
+          statusBadge.textContent = '🔧';
+          statusMessage.textContent = 'Server in Maintenance';
+          statusMessage.className = 'status-message maintenance';
+          statusDetails.innerHTML = `Server is currently undergoing maintenance to improve your gaming experience.`;
+          statusIndicator.textContent = 'MAINTENANCE MODE';
+          pulseIndicator.className = 'pulse-dot maintenance';
+          maintenanceRow.style.display = 'flex';
+          if (!expectedEndRaw || expectedDays === 0) {
+            maintenanceInfo.textContent = `We don't have a idea right now`;
+          } else {
+            maintenanceInfo.textContent = `${expectedDays} day${expectedDays !== 1 ? 's' : ''} expected`;
+          }
+        } else {
+          // Server is not in maintenance, check if online
+          try {
+            const apiResponse = await fetch('https://astralyxpvp.chessmrbeaston.workers.dev/api?serverStatus=true');
+            const apiData = await apiResponse.json();
+
+            if (apiData.online) {
+              statusBadge.textContent = '🟢';
+              statusMessage.textContent = 'Server Online';
+              statusMessage.className = 'status-message online';
+              statusDetails.innerHTML = `The server is running and ready for battle! Jump in and start playing.`;
+              statusIndicator.textContent = 'ONLINE';
+              pulseIndicator.className = 'pulse-dot online';
+              playersRow.style.display = 'flex';
+              playersInfo.textContent = `${apiData.current}/${apiData.max} Players`;
+            } else {
+              statusBadge.textContent = '🔴';
+              statusMessage.textContent = 'Server Offline';
+              statusMessage.className = 'status-message offline';
+              statusDetails.innerHTML = `The server is currently offline. Please check back soon!`;
+              statusIndicator.textContent = 'OFFLINE';
+              pulseIndicator.className = 'pulse-dot offline';
+            }
+          } catch (error) {
+            // If API fails, show offline status
+            statusBadge.textContent = '⚠️';
+            statusMessage.textContent = 'Status Unknown';
+            statusMessage.className = 'status-message offline';
+            statusDetails.innerHTML = `Unable to check server status at this moment. Please try again later.`;
+            statusIndicator.textContent = 'UNKNOWN';
+            pulseIndicator.className = 'pulse-dot offline';
+          }
+        }
+      } catch (error) {
+        console.error('Error loading server status:', error);
+        statusBadge.textContent = '⚠️';
+        statusMessage.textContent = 'Error Loading Status';
+        statusMessage.className = 'status-message offline';
+        statusDetails.innerHTML = `Could not load server status configuration. Please refresh the page.`;
+        statusIndicator.textContent = 'ERROR';
+        statusInfo.style.display = 'none';
+      }
+    }
+
+    // Load status on page load
+    document.addEventListener('DOMContentLoaded', loadServerStatus);
+
+    // Also update nav status bar
+    async function updateNavStatus(){
+      const el = document.getElementById('nav-status');
+      if(!el) return;
+      try{
+        const r = await fetch('https://astralyxpvp.chessmrbeaston.workers.dev/api?serverStatus=true');
+        const s = await r.json();
+        if(s.online){
+          el.classList.add('online');
+          el.classList.remove('offline');
+          el.textContent = '🟢 ' + s.current + '/' + s.max + ' Online';
+        } else {
+          el.classList.add('offline');
+          el.classList.remove('online');
+          el.textContent = '🔴 Offline';
+        }
+      } catch(e){
+        el.textContent = '⚠️ Unknown';
+      }
+    }
+
+    updateNavStatus();
+    setInterval(updateNavStatus, 30000);
+  </script>
+
+  <footer>
+    <div class="footer-top">
+        <img src="Assets/logo.png" alt="NebulaGames" style="height: 30px; opacity: 0.6; margin-bottom: 10px;">
+        <p>© 2026 NebulaGames. All rights reserved.</p>
+        <p>We are not affiliated with Mojang or Minecraft</p>
+    </div>
+    <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="credits-web.html">Credits</a>
+    </div>
+  </footer>
+
+  <script src="Script/script.js"></script>
+</body>
+</html>
