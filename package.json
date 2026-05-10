@@ -1,0 +1,8 @@
+{
+  "name": "vanilla-toast-project",
+  "version": "1.0.0",
+  "description": "A simple vanilla JS project using toastify-js",
+  "dependencies": {
+    "toastify-js": "^1.12.0"
+  }
+}
