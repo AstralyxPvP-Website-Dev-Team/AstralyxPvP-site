@@ -175,7 +175,7 @@ nav {
   animation: navDrop 0.8s cubic-bezier(.22, 1, .36, 1);
   will-change: transform;
   transform: translateZ(0);
-  
+
 }
 
 .nav-left,
