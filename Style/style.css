@@ -1095,6 +1095,8 @@ footer::before {
     text-decoration: none;
     cursor: pointer;
     transition: background 260ms var(--ease), color 260ms var(--ease);
+    font-size: 18;
+    font-weight: bold;
 }
 
 .context-menu button:hover,
