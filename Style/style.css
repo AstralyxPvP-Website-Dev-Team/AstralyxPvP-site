@@ -99,13 +99,16 @@ body {
   position: relative;
 }
 
-.icon-swords {
-    display: inline-block;
-    width: 40px;  
+.custom-icon {
+    width: 40px;   /* Adjust to match your other icons */
     height: 40px;
-    background-color: rgba(255, 215, 0, 0.4); 
-    -webkit-mask: url('Assets/swords.svg') no-repeat center / contain;
-    mask: url('Assets/swords.svg') no-repeat center / contain;
+    fill: #e3b04b; /* Change this to red or your gold color! */
+}
+
+.icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 body::before {
