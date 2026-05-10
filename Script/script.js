@@ -177,13 +177,31 @@ const contextMenu = document.getElementById("contextMenu");
 
 // Standard Copy function
 async function copyServerIp() {
-    const toast = document.getElementById("toast");
-    const toastText = document.getElementById("toastText");
     try {
         await navigator.clipboard.writeText(IP);
-        showToast("Server IP copied: " + IP);
+        
+        // Success Toast
+        Toastify({
+            text: "Server IP copied: " + IP,
+            duration: 3000,
+            gravity: "bottom", // top or bottom
+            position: "center", // left, center or right
+            style: {
+                background: "#28a745", // Green for success
+            }
+        }).showToast();
+
     } catch (error) {
-        showToast("Server IP: " + IP);
+        // Fallback/Error Toast
+        Toastify({
+            text: "Server IP: " + IP,
+            duration: 5000,
+            gravity: "bottom",
+            position: "center",
+            style: {
+                background: "#dc3545", // Red for error
+            }
+        }).showToast();
     }
 }
 
