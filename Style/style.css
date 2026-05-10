@@ -1088,6 +1088,14 @@ footer::before {
   }
 }
 
+@media (max-width: 480px) {
+    .sticky-ip-toast {
+        width: 90%;
+        font-size: 14px;
+        bottom: 20px !important;
+    }
+}
+
 .context-menu {
   position: fixed;
   z-index: 90;
@@ -1303,7 +1311,8 @@ footer::before {
     bottom: 30px !important;  
     left: 50% !important;
     z-index: 999999 !important; 
-    animation: toastFadeIn 0.4s ease-out forwards;
+    margin: 0 !important;
+    animation: toastFadeIn 0.4s ease-out forwards !important;
 }
 
 @keyframes toastFadeIn {
