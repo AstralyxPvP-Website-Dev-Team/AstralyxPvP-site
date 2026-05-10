@@ -1252,3 +1252,8 @@ footer::before {
     margin-right: auto;
     line-height: 1.8;
 }
+
+.hero, .wrap, .lb-section, .credits-section {
+  padding-top: 0 !important; 
+  padding-bottom: 80px;
+}
