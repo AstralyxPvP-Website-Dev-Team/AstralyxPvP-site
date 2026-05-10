@@ -1095,7 +1095,7 @@ footer::before {
     text-decoration: none;
     cursor: pointer;
     transition: background 260ms var(--ease), color 260ms var(--ease);
-    font-size: 18;
+    font-size: 18px;
     font-weight: bold;
 }
 
