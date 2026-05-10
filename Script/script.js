@@ -2,7 +2,7 @@
    ASTRALYXPVP JAVASCRIPT
    ====================================== */
 const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
-const IP = "wolverine-mixer.gl.joinmc.link"
+const IP = "none-subscribe.gl.joinmc.link"
 // ======== HOME PAGE - IP COPY FUNCTION ========
 function copyIP(){
   if(navigator.clipboard?.writeText){
