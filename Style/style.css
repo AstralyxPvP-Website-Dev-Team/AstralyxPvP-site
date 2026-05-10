@@ -12,6 +12,10 @@
   --font-elegant: 'Playfair Display', serif;
   --font-reading: 'Lora', serif;
 }
+:root {
+  /* This accounts for the 30px top offset + the nav height + breathing room */
+  --nav-clearance: 180px; 
+}
 .page-content{flex:1}
 .subtitle{text-align:center;color:var(--muted);margin-bottom:26px}
 .wrap{padding:54px 7% 66px}
