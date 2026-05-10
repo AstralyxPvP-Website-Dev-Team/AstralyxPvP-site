@@ -1,0 +1,10 @@
+# https://astralyxpvp.pages.dev/ robots.txt
+# Created for AstralyxPvP - NebulaGames
+User-agent: *
+Allow: /
+
+Disallow: /Assets/
+Disallow: /Script/
+Disallow: /Style/
+
+Sitemap: https://astralyxpvp.pages.dev/sitemap.xml

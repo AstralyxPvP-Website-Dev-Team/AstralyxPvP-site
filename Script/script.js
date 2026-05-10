@@ -75,7 +75,7 @@ async function refreshLB() {
             html += `<tr>
                 <td class="rank">#${i + 1}</td>
                 <td>
-                  <img src="https://minotar.net/helm/${encodeURIComponent(p.username)}/24.png" style="vertical-align:middle;margin-right:10px;border-radius:3px">
+                  <img src="https://minotar.net/helm/${encodeURIComponent(p.username)}/24.png" style="vertical-align:middle;margin-right:10px;border-radius:3px" loading="lazy">
                   ${name}
                 </td>
                 <td>${elo}</td>
@@ -102,27 +102,36 @@ async function refreshLB() {
     }
 })();
 
-async function updateNavStatus(){
+async function updateNavStatus() {
     const el = document.getElementById('nav-status');
-    if(!el) return;
+    if (!el) return;
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
     try {
-        const r = await fetch(`${API_BASE}?serverStatus=true`);
-        const s = await r.json();
-        if(s.online){
-            el.classList.add('online');
-            el.classList.remove('offline');
-            el.textContent = `🟢 ${s.current}/${s.max} Online`;
+        const response = await fetch(`${API_BASE}?serverStatus=true`, { 
+            signal: controller.signal 
+        });
+        
+        clearTimeout(timeoutId);
+
+        if (!response.ok) throw new Error();
+
+        const data = await response.json();
+
+        if (data.online) {
+            el.className = 'server-pill online';
+            el.textContent = `🟢 ${data.current}/${data.max} Online`;
         } else {
-            el.classList.add('offline');
-            el.classList.remove('online');
+            el.className = 'server-pill offline';
             el.textContent = '🔴 Offline';
         }
-    } catch {
-        el.classList.add('offline');
+    } catch (error) {
+        el.className = 'server-pill offline';
         el.textContent = '🔴 Offline';
     }
 }
-
 updateNavStatus();
 setInterval(updateNavStatus, 20000);
 
@@ -150,7 +159,7 @@ function positionContextMenu(event) {
 
     contextMenu.classList.remove("hide", "show");
     contextMenu.style.display = "block";
-    contextMenu.style.visibility = "hidden";
+    contextMenu.setAttribute("aria-hidden", "false");
 
     const menuWidth = contextMenu.offsetWidth || 230;
     const menuHeight = contextMenu.offsetHeight || 230;
@@ -160,31 +169,26 @@ function positionContextMenu(event) {
     let x = event.clientX;
     let y = event.clientY;
 
-    if (x + menuWidth > windowWidth) {
-        x = x - menuWidth;
-    }
-
-    if (y + menuHeight > windowHeight) {
-        y = y - menuHeight;
-    }
+    if (x + menuWidth > windowWidth) x -= menuWidth;
+    if (y + menuHeight > windowHeight) y -= menuHeight;
 
     contextMenu.style.left = `${Math.max(0, x)}px`;
     contextMenu.style.top = `${Math.max(0, y)}px`;
 
-    contextMenu.style.visibility = "visible";
-    void contextMenu.offsetHeight; 
-    
-    contextMenu.classList.add("show");
-    contextMenu.setAttribute("aria-hidden", "false");
+    requestAnimationFrame(() => {
+        contextMenu.classList.add("show");
+    });
 }
 
 function hideContextMenu() {
+    // Only proceed if the menu is actually showing
     if (!contextMenu || !contextMenu.classList.contains("show")) return;
 
+    contextMenu.classList.remove("show");
     contextMenu.classList.add("hide");
 
     const handleAnimationEnd = () => {
-        contextMenu.classList.remove("show", "hide");
+        contextMenu.classList.remove("hide");
         contextMenu.style.display = "none";
         contextMenu.setAttribute("aria-hidden", "true");
         contextMenu.removeEventListener("animationend", handleAnimationEnd);
@@ -195,9 +199,11 @@ function hideContextMenu() {
 
 document.addEventListener("contextmenu", positionContextMenu);
 
-document.addEventListener("click", (e) => {
-    if (contextMenu && !contextMenu.contains(e.target)) {
-        hideContextMenu();
+document.addEventListener("mousedown", (e) => {
+    if (contextMenu && contextMenu.classList.contains("show")) {
+        if (!contextMenu.contains(e.target)) {
+            hideContextMenu();
+        }
     }
 });
 
@@ -207,12 +213,11 @@ document.addEventListener("keydown", (event) => {
         if (typeof closeMobileMenu === 'function') closeMobileMenu();
     }
 });
-
 document.querySelectorAll("[data-menu-copy]").forEach(btn => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", () => {
         if (typeof copyIP === 'function') {
-            copyIP(e);
-            hideContextMenu();
+            copyIP();
         }
+        hideContextMenu();
     });
 });
