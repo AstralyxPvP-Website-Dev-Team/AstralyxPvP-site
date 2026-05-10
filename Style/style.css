@@ -1253,7 +1253,7 @@ footer::before {
     line-height: 1.8;
 }
 
-.hero, .wrap, .lb-section, .credits-section {
+.hero, .wrap, .lb-section, .credits-section .features-grid {
   padding-top: 0 !important; 
   padding-bottom: 80px;
 }
