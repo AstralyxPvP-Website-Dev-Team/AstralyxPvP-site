@@ -1,7 +1,7 @@
 const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
 const IP = "none-subscribe.gl.joinmc.link";
 
-// note for dreamlong: bruh bro we gotta add copyleft headers lol see LICENSE file
+// Did you edit script.js? its bugged out
 
 function copyIP() {
     navigator.clipboard.writeText(IP).then(() => {
@@ -244,30 +244,46 @@ setInterval(syncTitle, 2000);
 
 async function loadNavbar() {
   const container = document.getElementById('navbar-placeholder');
-  
+  if (!container) return; // Safety check
+
   try {
     const response = await fetch('https://astralyxpvp.pages.dev/Assets/navbar.html');
     if (!response.ok) throw new Error('Navbar file not found');
     
     const html = await response.text();
-    
     container.innerHTML = html;
+    updateNavStatus();
 
+    // 2. Fix the "Active" link based on current URL
+    const currentPath = window.location.pathname.split("/").pop() || "index.html";
+    container.querySelectorAll('.nav-links a').forEach(link => {
+        if(link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+    });
+
+    // 3. Handle scripts inside the navbar
     const scripts = container.querySelectorAll('script');
     scripts.forEach(oldScript => {
       const newScript = document.createElement('script');
-      Array.from(oldScript.attributes).forEach(attr => {
-        newScript.setAttribute(attr.name, attr.value);
-      });
+      Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
       newScript.textContent = oldScript.textContent;
       oldScript.parentNode.replaceChild(newScript, oldScript);
     });
 
   } catch (error) {
     console.error('Error loading navbar:', error);
-    container.innerHTML = '<p style="color:red;">Error loading navigation.</p>';
   }
 }
 
-// Run the function
-loadNavbar();
+
+(async () => {
+    await loadNavbar();
+    
+    const gmSelect = document.getElementById('gm');
+    if (gmSelect) {
+        await loadGamemodes();
+        await refreshLB();
+        gmSelect.addEventListener('change', refreshLB);
+    }
+})();
