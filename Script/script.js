@@ -4,13 +4,36 @@
 
 const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
 const IP = "none-subscribe.gl.joinmc.link"
+
+(function() {
+    if (typeof Toastify === 'undefined') {
+        const script = document.createElement('script');
+        script.src = "https://cdn.jsdelivr.net/npm/toastify-js";
+        script.async = true;
+        document.head.appendChild(script);
+    }
+})();
+
 // ======== HOME PAGE - IP COPY FUNCTION ========
-function copyIP(){
-  if(navigator.clipboard?.writeText){
-    navigator.clipboard.writeText(IP).then(() => alert('Server IP copied: ' + IP)).catch(() => alert('Server IP: ' + IP));
-  } else {
-    alert('Server IP: ' + ip);
-  }
+function copyIP() {
+    navigator.clipboard.writeText(IP).then(() => {
+        Toastify({
+            text: "🔥 Server IP copied: " + IP,
+            duration: 3000,
+            gravity: "bottom", 
+            position: "center",
+            stopOnFocus: true, 
+            style: {
+                // Orange to Red gradient
+                background: "linear-gradient(to right, #ff5f6d, #ffc371)", 
+                borderRadius: "8px",
+                fontWeight: "bold",
+                boxShadow: "0 4px 15px rgba(255, 95, 109, 0.3)"
+            }
+        }).showToast();
+    }).catch(() => {
+        alert('Server IP: ' + IP);
+    });
 }
 
 // ======== LEADERBOARD PAGE - UTILITY FUNCTIONS ========
@@ -177,35 +200,6 @@ function positionContextMenu(event) {
 const contextMenu = document.getElementById("contextMenu");
 
 // Standard Copy function
-async function copyServerIp() {
-    try {
-        await navigator.clipboard.writeText(IP);
-        
-        // Success Toast
-        Toastify({
-            text: "Server IP copied: " + IP,
-            duration: 3000,
-            gravity: "bottom", // top or bottom
-            position: "center", // left, center or right
-            style: {
-                background: "#28a745", // Green for success
-            }
-        }).showToast();
-
-    } catch (error) {
-        // Fallback/Error Toast
-        Toastify({
-            text: "Server IP: " + IP,
-            duration: 5000,
-            gravity: "bottom",
-            position: "center",
-            style: {
-                background: "#dc3545", // Red for error
-            }
-        }).showToast();
-    }
-}
-
 function hideContextMenu() {
     contextMenu.classList.remove("show");
     contextMenu.setAttribute("aria-hidden", "true");
@@ -232,6 +226,6 @@ document.addEventListener("keydown", event => {
 
 // Copy Button Listener
 document.querySelectorAll("[data-menu-copy]").forEach(btn => {
-    btn.addEventListener("click", copyIP); // I changed it to avoid Toastify issues... see top very top
+    btn.addEventListener("click", copyIP); // FUCK YA NO WONDAR
 });
 
