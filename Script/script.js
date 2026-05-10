@@ -5,7 +5,7 @@
 // for Dreamlong by Indiancoder3: bro ik u used ai
 
 const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
-const IP = "none-subscribe.gl.joinmc.link"
+const IP = "none-subscribe.gl.joinmc.link";
 
 // ======== IMPROVED DEPENDENCY LOADING ========
 (function() {
