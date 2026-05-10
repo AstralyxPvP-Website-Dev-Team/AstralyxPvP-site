@@ -1304,16 +1304,17 @@ footer::before {
     position: fixed !important; 
     bottom: 30px !important;  
     left: 50% !important;
-    transform: translateX(-50%) !important;
     z-index: 999999 !important; 
-    margin: 0 auto !important;
-}
-
-.toastify-rt, .toastify-rb, .toastify-bc {
-    position: fixed !important;
+    animation: toastFadeIn 0.4s ease-out forwards;
 }
 
 @keyframes toastFadeIn {
-    from { opacity: 0; transform: translate(-50%, 20px); }
-    to { opacity: 1; transform: translate(-50%, 0); }
+    from { 
+        opacity: 0; 
+        transform: translate(-50%, 20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translate(-50%, 0); 
+    }
 }
