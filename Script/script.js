@@ -1,6 +1,8 @@
 const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
 const IP = "none-subscribe.gl.joinmc.link";
 
+// note for dreamlong: bruh bro we gotta add copyleft headers lol see LICENSE file
+
 function copyIP() {
     navigator.clipboard.writeText(IP).then(() => {
         alert('Copied Server IP to the ClipBoard: ' + IP);
