@@ -1039,72 +1039,148 @@ footer::before {
   filter: brightness(1.1);
 }
 
+
 @media (max-width: 900px) {
   :root {
-    --nav-height: 170px;
+    --nav-height: auto;
   }
+
+  .page-content {
+    padding-top: 20px;
+  }
+
   nav {
     flex-direction: column;
     gap: 15px;
-    padding: 15px;
-    top: 15px;
-    border-radius: 25px;
+    padding: 20px;
+    top: 10px;
+    width: 95%;
+    border-radius: 20px;
   }
-  .hero,
-  .wrap,
-  .lb-section,
-  .credits-section,
-  .features-grid {
-    padding-top: 30px;
-  }
-  .hero-inner-split {
+
+  .nav-left {
     flex-direction: column;
-    text-align: center;
+    gap: 10px;
   }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+  }
+
+  .hero, .wrap, .lb-section, .credits-section, .features {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .hero-inner-split {
+    flex-direction: column-reverse; 
+    text-align: center;
+    gap: 30px;
+  }
+
   .hero-text {
     text-align: center;
   }
+
+  .hero-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+
   .hero-image {
     justify-content: center;
   }
+
   .hero-logo-main {
-    max-width: 320px;
+    max-width: 260px;
   }
+
   .controls {
     flex-direction: column;
-    align-items: center;
+    width: 100%;
+  }
+
+  select {
+    width: 100%;
   }
 }
 
 @media (max-width: 640px) {
   .section-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
-  .hero {
-    padding-top: 40px;
-  }
+
   .hero-btn {
     width: 100%;
+    padding: 14px 24px;
   }
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
+
+  .lb-panel {
+    padding: 15px;
+    overflow-x: auto;
   }
+
   table {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    min-width: 450px;
   }
-  th,
-  td {
-    padding: 10px;
+
+  th, td {
+    padding: 8px;
+  }
+
+  .feature-card {
+    padding: 25px 20px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .credits-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 480px) {
-    .sticky-ip-toast {
-        width: 90%;
-        font-size: 14px;
-        bottom: 20px !important;
-    }
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .logo span {
+    font-size: 0.9rem;
+  }
+
+  .logo img {
+    height: 30px;
+  }
+
+  .nav-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+  }
+
+  .nav-cta {
+    grid-column: span 2;
+    margin-top: 5px;
+  }
+
+  .sticky-ip-toast {
+    width: 90%;
+    font-size: 13px;
+    bottom: 15px !important;
+  }
 }
 
 .context-menu {
