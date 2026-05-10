@@ -1099,7 +1099,9 @@ footer::before {
 .context-menu {
   position: fixed;
   z-index: 90;
-  display: none;
+  opacity: 0;
+  pointer-events: none; 
+  visibility: hidden;
   width: 230px;
   padding: 0.45rem;
   border: 1px solid rgba(255, 75, 43, 0.3);
@@ -1110,8 +1112,16 @@ footer::before {
 }
 
 .context-menu.show {
-  display: block;
-  animation: menuIn 220ms var(--ease) both;
+  display: block; 
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  animation: menuIn 220ms var(--ease) forwards;
+}
+
+.context-menu.hide {
+  animation: menuOut 220ms var(--ease) forwards;
+  pointer-events: none; /* Prevent clicks during the animation */
 }
 
 .context-menu i {
@@ -1168,32 +1178,6 @@ footer::before {
     opacity: 0;
     transform: translateY(8px) scale(0.96);
   }
-}
-
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: 1.3rem;
-  z-index: 80;
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  max-width: min(92vw, 520px);
-  padding: 0.9rem 1rem;
-  border: 1px solid rgba(255, 177, 66, 0.38);
-  border-radius: 999px;
-  color: var(--text);
-  background: rgba(8, 4, 10, 0.84);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(20px);
-  transform: translate(-50%, 140%);
-  opacity: 0;
-  transition: transform 500ms var(--ease), opacity 500ms var(--ease);
-}
-
-.toast.show {
-  transform: translate(-50%, 0);
-  opacity: 1;
 }
 
 .credits-section {

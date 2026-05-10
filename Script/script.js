@@ -145,30 +145,61 @@ const contextMenu = document.getElementById("contextMenu");
 function positionContextMenu(event) {
     if (!contextMenu) return;
     event.preventDefault();
-    const menuWidth = 230;
-    const menuHeight = 230;
-    const left = Math.min(event.clientX, window.innerWidth - menuWidth - 12);
-    const top = Math.min(event.clientY, window.innerHeight - menuHeight - 12);
 
-    contextMenu.style.left = left + "px";
-    contextMenu.style.top = top + "px";
+    contextMenu.classList.remove("hide", "show");
+    contextMenu.style.display = "block";
+    contextMenu.style.visibility = "hidden";
+
+    const menuWidth = contextMenu.offsetWidth || 230;
+    const menuHeight = contextMenu.offsetHeight || 230;
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
+
+    let x = event.clientX;
+    let y = event.clientY;
+
+    if (x + menuWidth > windowWidth) {
+        x = x - menuWidth;
+    }
+
+    if (y + menuHeight > windowHeight) {
+        y = y - menuHeight;
+    }
+
+    contextMenu.style.left = `${Math.max(0, x)}px`;
+    contextMenu.style.top = `${Math.max(0, y)}px`;
+
+    contextMenu.style.visibility = "visible";
+    void contextMenu.offsetHeight; 
+    
     contextMenu.classList.add("show");
     contextMenu.setAttribute("aria-hidden", "false");
 }
 
 function hideContextMenu() {
-    if (contextMenu) {
-        contextMenu.classList.remove("show");
+    if (!contextMenu || !contextMenu.classList.contains("show")) return;
+
+    contextMenu.classList.add("hide");
+
+    const handleAnimationEnd = () => {
+        contextMenu.classList.remove("show", "hide");
+        contextMenu.style.display = "none";
         contextMenu.setAttribute("aria-hidden", "true");
-    }
+        contextMenu.removeEventListener("animationend", handleAnimationEnd);
+    };
+
+    contextMenu.addEventListener("animationend", handleAnimationEnd);
 }
 
 document.addEventListener("contextmenu", positionContextMenu);
-document.addEventListener("click", e => {
-    if (contextMenu && !contextMenu.contains(e.target)) hideContextMenu();
+
+document.addEventListener("click", (e) => {
+    if (contextMenu && !contextMenu.contains(e.target)) {
+        hideContextMenu();
+    }
 });
 
-document.addEventListener("keydown", event => {
+document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
         hideContextMenu();
         if (typeof closeMobileMenu === 'function') closeMobileMenu();
@@ -176,5 +207,10 @@ document.addEventListener("keydown", event => {
 });
 
 document.querySelectorAll("[data-menu-copy]").forEach(btn => {
-    btn.addEventListener("click", copyIP);
+    btn.addEventListener("click", (e) => {
+        if (typeof copyIP === 'function') {
+            copyIP(e);
+            hideContextMenu();
+        }
+    });
 });
