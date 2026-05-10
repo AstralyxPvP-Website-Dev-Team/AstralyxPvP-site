@@ -25,7 +25,7 @@ async function loadGamemodes() {
 
   try {
     // Fixed URL: changed 'gamemodes' to 'gamemode' per your API spec
-    const res = await fetch('${API_BASE}?gamemode=true');
+    const res = await fetch(`${API_BASE}?gamemode=true`);
     const data = await res.json();
     
     // Extract gamemodes array
@@ -160,17 +160,7 @@ setInterval(updateNavStatus, 20000);
   });
 })();
 
-const contextMenu = document.getElementById("contextMenu");
 
-// Standard Copy function
-function copyServerIp() {
-    const ip = document.getElementById('server-ip').innerText;
-    navigator.clipboard.writeText(ip).then(() => {
-        alert("IP Copied!");
-    });
-}
-
-// Positioning logic (Keep your original code here)
 function positionContextMenu(event) {
     event.preventDefault();
     const menuWidth = 230;
@@ -182,6 +172,21 @@ function positionContextMenu(event) {
     contextMenu.style.top = top + "px";
     contextMenu.classList.add("show");
     contextMenu.setAttribute("aria-hidden", "false");
+}
+const contextMenu = document.getElementById("contextMenu");
+
+// Standard Copy function
+async function copyServerIp() {
+    const toast = document.getElementById("toast");
+    const toastText = document.getElementById("toastText");
+    const serverIpText = document.getElementById("serverIpText");
+    const ip = document.getElementById('server-ip').innerText;
+    try {
+        await navigator.clipboard.writeText(ip);
+        showToast("Server IP copied: " + ip);
+    } catch (error) {
+        showToast("Server IP: " + ip);
+    }
 }
 
 function hideContextMenu() {
@@ -198,4 +203,19 @@ document.addEventListener("click", e => {
 // Copy Button Listener
 document.querySelectorAll("[data-menu-copy]").forEach(btn => {
     btn.addEventListener("click", copyServerIp);
+});
+
+const menu = document.getElementById('contextMenu');
+
+window.addEventListener('contextmenu', (e) => {
+    e.preventDefault(); 
+    menu.style.top = `${e.pageY}px`;
+    menu.style.left = `${e.pageX}px`;
+    menu.style.display = 'block';
+    menu.setAttribute('aria-hidden', 'false');
+});
+
+window.addEventListener('click', () => {
+    menu.style.display = 'none';
+    menu.setAttribute('aria-hidden', 'true');
 });
