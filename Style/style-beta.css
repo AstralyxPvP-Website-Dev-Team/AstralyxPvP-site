@@ -14,7 +14,7 @@
 }
 .page-content{flex:1}
 .subtitle{text-align:center;color:var(--muted);margin-bottom:26px}
-.wrap{padding:54px 7% 66px}
+.wrap{padding:130px 7% 66px}
 .title{
   text-transform:uppercase;letter-spacing:.16em;font-weight:800;
   font-size:1.9rem;text-align:center;margin-bottom:10px;
@@ -110,12 +110,13 @@ nav {
   align-items: center;
   position: fixed;
   top: 30px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   width: 90%;
   max-width: 1200px;
   border-radius: 50px;
-  z-index: 1000;
+  z-index: 9999;
   animation: navDrop 0.8s cubic-bezier(.22, 1, .36, 1);
 }
 
@@ -270,7 +271,7 @@ nav {
   min-height: 78vh;
   display: flex;
   align-items: center;
-  padding: 60px 8%;
+  padding: 130px 8% 60px;
   position: relative;
 }
 
