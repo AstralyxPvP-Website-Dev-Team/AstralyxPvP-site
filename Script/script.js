@@ -7,7 +7,6 @@
 const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
 const IP = "none-subscribe.gl.joinmc.link";
 
-// ======== IMPROVED DEPENDENCY LOADING ========
 (function() {
     if (typeof Toastify === 'undefined') {
         const script = document.createElement('script');
@@ -18,22 +17,21 @@ const IP = "none-subscribe.gl.joinmc.link";
     }
 })();
 
-// ======== HOME PAGE - IP COPY FUNCTION ========
 function copyIP() {
     navigator.clipboard.writeText(IP).then(() => {
-        // Function to actually trigger the toast
         const showToast = () => {
             Toastify({
                 text: "🔥 Server IP copied: " + IP,
-                duration: 3000,
+                duration: 4000, // Slightly longer so you can see it while scrolling
                 gravity: "bottom", 
                 position: "center",
                 stopOnFocus: true, 
+                className: "sticky-ip-toast", // This is the key!
                 style: {
                     background: "linear-gradient(to right, #ff5f6d, #ffc371)", 
                     borderRadius: "8px",
                     fontWeight: "bold",
-                    boxShadow: "0 4px 15px rgba(255, 95, 109, 0.3)"
+                    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)"
                 }
             }).showToast();
         };
@@ -41,24 +39,20 @@ function copyIP() {
         if (typeof Toastify !== 'undefined') {
             showToast();
         } else {
-            // If Toastify isn't ready, wait for the script to load
+            // Fallback for race conditions
             const script = document.getElementById('toastify-script');
             if (script) {
                 script.addEventListener('load', showToast);
-                // Fallback: If it takes too long (e.g. 2 seconds), just use alert
-                setTimeout(() => {
-                   if (typeof Toastify === 'undefined') alert('🔥 Server IP copied: ' + IP);
-                }, 2000);
             } else {
                 alert('🔥 Server IP copied: ' + IP);
             }
         }
-    }).catch((err) => {
-        console.error("Copy failed", err);
+    }).catch(() => {
         alert('Server IP: ' + IP);
     });
 }
-// ======== LEADERBOARD PAGE - UTILITY FUNCTIONS ========
+
+
 function escapeHtml(s) {
   return (s ?? '').toString().replace(/[&<>"']/g, c => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
@@ -102,7 +96,6 @@ async function loadGamemodes() {
     }
   } catch (err) {
     console.error("Failed to load gamemodes from API, using fallback UI.", err);
-    // Keep existing fallback options if the API fails
   }
 }
 

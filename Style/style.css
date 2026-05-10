@@ -1295,3 +1295,20 @@ footer::before {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 25px;
 }
+
+.sticky-ip-toast {
+    position: fixed !important;
+    bottom: 30px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+    z-index: 10000 !important; 
+    
+    transition: opacity 0.4s ease-in-out !important;
+    animation: toastFadeIn 0.5s ease-out !important;
+}
+
+@keyframes toastFadeIn {
+    from { opacity: 0; transform: translate(-50%, 20px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
