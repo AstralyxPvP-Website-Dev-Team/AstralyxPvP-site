@@ -71,10 +71,17 @@ body::before {
     radial-gradient(circle at 80% 30%, rgba(200, 16, 46, 0.08), transparent 35%),
     radial-gradient(circle at 50% 80%, rgba(255, 215, 0, 0.04), transparent 40%);
   animation: ambientGlow 12s ease-in-out infinite alternate;
+  position:fixed;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
   pointer-events: none;
   z-index: -1;
 }
-
+.page-enter { animation: pageFadeIn .35s ease both; }
+.page-exit { animation: pageFadeOut .2s ease both; }
+@keyframes pageFadeIn { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: translateY(0) } }
+@keyframes pageFadeOut { from { opacity: 1; transform: translateY(0) } to { opacity: 0; transform: translateY(6px) } }
 ::selection {
   background: var(--primary);
   color: #fff;
@@ -1061,12 +1068,27 @@ footer::before {
 
 .context-menu.show {
     display: block;
-    animation: menuIn 220ms var(--ease) both;
+    animation: menuIn 220ms var(--ease) both; 
 }
 
-.context-menu button,
+.context-menu button {
+    display: flex;
+    width: 100%;
+    font-family: var(--font-reading);
+    align-items: center;
+    gap: 0.72rem;
+    padding: 0.78rem 0.85rem;
+    border: 0;
+    border-radius: 12px;
+    color: var(--text);
+    background: transparent;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 260ms var(--ease), color 260ms var(--ease);
+}
 .context-menu a {
-   display: flex;
+    display: flex;
     width: 100%;
     font-family: var(--font-reading);
     align-items: center;
@@ -1091,10 +1113,37 @@ footer::before {
 @keyframes menuIn {
   from { 
     opacity: 0; 
-    transform: translateY(8px) scale(0.96); /* Starts slightly lower and smaller */
+    transform: translateY(8px) scale(0.96);
   }
   to { 
     opacity: 1; 
-    transform: translateY(0) scale(1); /* Ends at normal size/position */
+    transform: translateY(0) scale(1);
   }
+}
+
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 1.3rem;
+    z-index: 80;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    max-width: min(92vw, 520px);
+    padding: 0.9rem 1rem;
+    border: 1px solid rgba(255, 177, 66, 0.38);
+    border-radius: 999px;
+    color: var(--text);
+    background: rgba(8, 4, 10, 0.84);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(20px);
+    transform: translate(-50%, 140%);
+    opacity: 0;
+    transition: transform 500ms var(--ease), opacity 500ms var(--ease);
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+    opacity: 1;
 }
