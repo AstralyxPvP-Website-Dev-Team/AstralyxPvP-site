@@ -1,10 +1,15 @@
-# https://astralyxpvp.pages.dev/ robots.txt
-# Created for AstralyxPvP - NebulaGames
+# User-Agent directives for AstralyxPvP Crawler Hub
+# Primary Authority: https://astralyxpvp.pages.dev/
 User-agent: *
 Allow: /
 
+# Prevent indexing of static dependency assets
 Disallow: /Assets/
 Disallow: /Script/
 Disallow: /Style/
 
+# Host configuration tells Google this is the master node domain
+Host: https://astralyxpvp.pages.dev/
+
+# Points crawler bots directly to your structural mapping file
 Sitemap: https://astralyxpvp.pages.dev/sitemap.xml
