@@ -18,7 +18,6 @@
             
             // Prevent menu from going off-screen
             const x = (e.clientX + 230 > window.innerWidth) ? e.clientX - 230 : e.clientX;
-            const y = (e.clientY + 230 > window.innerHeight) ? e.clientY - 230 : e.clientY;
             
             contextMenu.style.left = `${Math.max(0, x)}px`;
             contextMenu.style.top = `${Math.max(0, y)}px`;

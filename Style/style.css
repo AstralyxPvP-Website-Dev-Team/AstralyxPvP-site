@@ -769,12 +769,13 @@ td {
 
 footer {
   background: #000000;
-  padding: 20px 9%; 
+  padding: 20px 9% !important; 
   text-align: center;
   border-top: 1px solid var(--border);
-  margin-top: auto; 
+  margin-top: auto;
   position: relative;
   overflow: hidden; 
+  line-height: 1; 
 }
 
 footer::before {
@@ -788,7 +789,7 @@ footer::before {
 }
 footer img {
     display: block;
-    margin: 0 auto 10px auto; /* Centers it and gives a controlled bottom margin */
+    margin: 0 auto 10px auto;
 }
 
 .footer-links {
