@@ -241,3 +241,33 @@ const targetNode = document.querySelector('title');
         });
     }
 setInterval(syncTitle, 2000);
+
+async function loadNavbar() {
+  const container = document.getElementById('navbar-placeholder');
+  
+  try {
+    const response = await fetch('https://astralyxpvp.pages.dev/Assets/navbar.html');
+    if (!response.ok) throw new Error('Navbar file not found');
+    
+    const html = await response.text();
+    
+    container.innerHTML = html;
+
+    const scripts = container.querySelectorAll('script');
+    scripts.forEach(oldScript => {
+      const newScript = document.createElement('script');
+      Array.from(oldScript.attributes).forEach(attr => {
+        newScript.setAttribute(attr.name, attr.value);
+      });
+      newScript.textContent = oldScript.textContent;
+      oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
+
+  } catch (error) {
+    console.error('Error loading navbar:', error);
+    container.innerHTML = '<p style="color:red;">Error loading navigation.</p>';
+  }
+}
+
+// Run the function
+loadNavbar();
