@@ -1,106 +1,90 @@
 (async function() {
-    // --- CONFIGURATION ---
     const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
     const IP = "none-subscribe.gl.joinmc.link";
 
     // --- HELPER FUNCTIONS ---
-    function copyIP() {
-        navigator.clipboard.writeText(IP).then(() => {
-            alert('Copied Server IP to the ClipBoard: ' + IP);
-        }).catch(err => console.error('Failed to copy: ', err));
-    }
+    const escapeHtml = (s) => (s ?? '').toString().replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
 
-    function escapeHtml(s) {
-        return (s ?? '').toString().replace(/[&<>"']/g, c => ({
-            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-        }[c]));
-    }
-
-    // --- NAVBAR & STATUS LOGIC ---
-    async function loadNavbar() {
+    // --- NAVBAR & STATUS ---
+    async function initNavbar() {
         const container = document.getElementById('navbar-placeholder');
         if (!container) return;
       
         try {
             const response = await fetch('https://astralyxpvp.pages.dev/Assets/navbar.html');
-            if (!response.ok) throw new Error('Navbar file not found');
+            if (!response.ok) throw new Error('Navbar missing');
             
             const html = await response.text();
             container.innerHTML = html;
 
-            // 1. Re-run status update now that the element exists
-            updateNavStatus();
-
-            // 2. Set Active Link highlight
+            // Highlight Active Link
             const currentPath = window.location.pathname.split("/").pop() || "index.html";
             container.querySelectorAll('.nav-links a').forEach(link => {
-                if(link.getAttribute('href') === currentPath) {
-                    link.classList.add('active');
-                }
+                if(link.getAttribute('href') === currentPath) link.classList.add('active');
             });
 
-            // 3. Handle scripts inside the navbar
-            const scripts = container.querySelectorAll('script');
-            scripts.forEach(oldScript => {
-                const newScript = document.createElement('script');
-                Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                newScript.textContent = oldScript.textContent;
-                oldScript.parentNode.replaceChild(newScript, oldScript);
-            });
+            // Adjust layout height
+            const nav = container.querySelector('nav');
+            const mainContent = document.querySelector('.page-content');
+            if (nav && mainContent) {
+                requestAnimationFrame(() => {
+                    mainContent.style.marginTop = nav.offsetHeight + "px";
+                });
+            }
+
+            // Initial status update
+            updateNavStatus();
         } catch (error) {
-            console.error('Error loading navbar:', error);
+            console.error('Navbar error:', error);
         }
     }
 
     async function updateNavStatus() {
         const el = document.getElementById('nav-status');
-        if (!el) return; // Prevents "classList of null" error
-
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        if (!el) return;
 
         try {
-            const response = await fetch(`${API_BASE}?serverStatus=true`, { signal: controller.signal });
-            clearTimeout(timeoutId);
+            const response = await fetch(`${API_BASE}?serverStatus=true`);
             const data = await response.json();
 
             if (data.online) {
                 el.className = 'server-pill online';
                 el.textContent = `🟢 ${data.current}/${data.max} Online`;
             } else {
-                el.className = 'server-pill offline';
-                el.textContent = '🔴 Offline';
+                el.className = 'server-pill offline'; el.textContent = '🔴 Offline';
             }
         } catch (error) {
-            el.className = 'server-pill offline';
-            el.textContent = '🔴 Offline';
+            el.className = 'server-pill offline'; el.textContent = '🔴 Offline';
         }
     }
 
-    // --- LEADERBOARD LOGIC ---
-    async function loadGamemodes() {
+    // --- LEADERBOARD ---
+    async function initLeaderboard() {
         const select = document.getElementById('gm');
         if (!select) return;
 
+        // 1. Load Gamemodes
         try {
             const res = await fetch(`${API_BASE}?gamemode=true`);
             const data = await res.json();
-            const gms = (data && Array.isArray(data.gamemodes)) ? data.gamemodes : [];
+            const gms = data?.gamemodes || [];
 
             if (gms.length > 0) {
-                select.innerHTML = ''; 
-                gms.forEach(gm => {
-                    const opt = document.createElement('option');
-                    opt.value = gm;
-                    opt.textContent = gm;
-                    select.appendChild(opt);
-                });
-
-                const urlParams = new URLSearchParams(window.location.search);
-                const queryGm = urlParams.get('gamemode')?.toLowerCase();
-                select.value = (queryGm && gms.includes(queryGm)) ? queryGm : (gms.includes('swordffa1') ? 'swordffa1' : gms[0]);
+                select.innerHTML = gms.map(gm => `<option value="${gm}">${gm}</option>`).join('');
+                
+                // Check URL params for gamemode
+                const urlGm = new URLSearchParams(window.location.search).get('gamemode');
+                if (urlGm && gms.includes(urlGm)) select.value = urlGm;
             }
-        } catch (err) { console.error("API Error:", err); }
+        } catch (err) { console.error("GM Load Error:", err); }
+
+        // 2. Attach Event Listener
+        select.addEventListener('change', refreshLB);
+        
+        // 3. Initial Load
+        refreshLB();
     }
 
     async function refreshLB() {
@@ -108,15 +92,14 @@
         const out = document.getElementById('lb');
         if (!gmSelect || !out) return;
 
-        const gm = gmSelect.value;
-        out.innerHTML = '<div style="text-align:center;color:var(--muted);padding:14px 0">Loading leaderboard...</div>';
+        out.innerHTML = '<div style="text-align:center;color:var(--muted);padding:14px 0">Loading...</div>';
 
         try {
-            const res = await fetch(`${API_BASE}?gamemode=${encodeURIComponent(gm)}&leaderboard=true`);
+            const res = await fetch(`${API_BASE}?gamemode=${encodeURIComponent(gmSelect.value)}&leaderboard=true`);
             const data = await res.json();
 
             if (!Array.isArray(data) || data.length === 0) {
-                out.innerHTML = '<div style="text-align:center;color:var(--muted);padding:14px 0">No data found.</div>';
+                out.innerHTML = '<div style="text-align:center;padding:14px 0">No data found.</div>';
                 return;
             }
 
@@ -133,83 +116,29 @@
             });
             out.innerHTML = html + '</tbody></table>';
 
+            // Sync URL
             const u = new URL(location.href);
-            u.searchParams.set('gamemode', gm);
+            u.searchParams.set('gamemode', gmSelect.value);
             history.replaceState({}, '', u.toString());
         } catch (err) {
-            out.innerHTML = '<div style="text-align:center;color:#e74c3c;padding:14px 0">Error loading data.</div>';
+            out.innerHTML = '<div style="text-align:center;color:#e74c3c;padding:14px 0">Error loading leaderboard.</div>';
         }
     }
 
-    // --- UI & TRANSITIONS ---
-    function initTransitions() {
-        if (document.body) document.body.classList.add('page-enter');
-        
-        document.addEventListener('click', function(e){
-            const a = e.target.closest('a');
-            if(!a) return;
-            const href = a.getAttribute('href') || '';
-            if(a.getAttribute('target') === '_blank' || href.startsWith('http') || !href || href === '#') return;
-
-            e.preventDefault();
-            document.body.classList.add('page-exit');
-            setTimeout(() => { window.location.href = href; }, 180);
-        });
-    }
-
-    // --- CONTEXT MENU ---
-    const contextMenu = document.getElementById("contextMenu");
-    function positionContextMenu(event) {
-        if (!contextMenu) return;
-        event.preventDefault();
-        contextMenu.style.display = "block";
-        const x = (event.clientX + 230 > window.innerWidth) ? event.clientX - 230 : event.clientX;
-        const y = (event.clientY + 230 > window.innerHeight) ? event.clientY - 230 : event.clientY;
-        contextMenu.style.left = `${Math.max(0, x)}px`;
-        contextMenu.style.top = `${Math.max(0, y)}px`;
-        requestAnimationFrame(() => contextMenu.classList.add("show"));
-    }
-
-    function hideContextMenu() {
-        if (!contextMenu || !contextMenu.classList.contains("show")) return;
-        contextMenu.classList.remove("show");
-        contextMenu.classList.add("hide");
-        contextMenu.addEventListener("animationend", () => {
-            contextMenu.classList.remove("hide");
-            contextMenu.style.display = "none";
-        }, { once: true });
-    }
-
-    // --- INITIALIZATION ---
-    initTransitions();
-    await loadNavbar(); // Crucial: Wait for nav before running other things
-
-    async function loadNavbar() {
-        try {
-            const response = await fetch('Assets/navbar.html');
-            const text = await response.text();
-            const placeholder = document.getElementById('navbar-placeholder');
-
-            if (placeholder) {
-                placeholder.innerHTML = text;
-
-                // Automatically handle the spacing so content doesn't overlap
-                const nav = placeholder.querySelector('nav');
-                const mainContent = document.querySelector('.page-content');
-
-                if (nav && mainContent) {
-                    // We use requestAnimationFrame to ensure the browser has 
-                    // rendered the nav before we measure its height.
-                    requestAnimationFrame(() => {
-                        const navHeight = nav.offsetHeight;
-                        mainContent.style.marginTop = navHeight + "px";
-                    });
-                }
-            }
-        } catch (err) {
-            console.error('Failed to load navbar:', err);
-        }
-    }
+    // --- INITIALIZE EVERYTHING ---
+    document.body.classList.add('page-enter');
+    
+    await initNavbar();      // Load nav first
+    await initLeaderboard(); // Then load leaderboard logic
 
     setInterval(updateNavStatus, 20000);
+
+    // Global click listener for transitions
+    document.addEventListener('click', e => {
+        const a = e.target.closest('a');
+        if(!a || a.target === '_blank' || a.href.startsWith('http') || a.hash) return;
+        e.preventDefault();
+        document.body.classList.add('page-exit');
+        setTimeout(() => { window.location.href = a.href; }, 180);
+    });
 })();
