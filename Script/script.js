@@ -1,6 +1,8 @@
 /* ======================================
    ASTRALYXPVP JAVASCRIPT
    ====================================== */
+import Toastify from 'https://cdn.skypack.dev/toastify-js';
+
 const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
 const IP = "none-subscribe.gl.joinmc.link"
 // ======== HOME PAGE - IP COPY FUNCTION ========
