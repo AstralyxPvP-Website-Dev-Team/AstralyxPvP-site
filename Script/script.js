@@ -193,6 +193,7 @@ function hideContextMenu() {
     contextMenu.classList.remove("show");
     contextMenu.setAttribute("aria-hidden", "true");
 }
+const menu = document.getElementById('contextMenu');
 
 // Event Listeners
 document.addEventListener("contextmenu", positionContextMenu);
@@ -200,22 +201,20 @@ document.addEventListener("click", e => {
     if (!contextMenu.contains(e.target)) hideContextMenu();
 });
 
+window.addEventListener("hashchange", () => openRoute(location.hash));
+document.addEventListener("contextmenu", positionContextMenu);
+document.addEventListener("click", event => {
+    if (!contextMenu.contains(event.target)) hideContextMenu();
+});
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        hideContextMenu();
+        closeMobileMenu();
+    }
+});
+
 // Copy Button Listener
 document.querySelectorAll("[data-menu-copy]").forEach(btn => {
     btn.addEventListener("click", copyServerIp);
 });
 
-const menu = document.getElementById('contextMenu');
-
-window.addEventListener('contextmenu', (e) => {
-    e.preventDefault(); 
-    menu.style.top = `${e.pageY}px`;
-    menu.style.left = `${e.pageX}px`;
-    menu.style.display = 'block';
-    menu.setAttribute('aria-hidden', 'false');
-});
-
-window.addEventListener('click', () => {
-    menu.style.display = 'none';
-    menu.setAttribute('aria-hidden', 'true');
-});
