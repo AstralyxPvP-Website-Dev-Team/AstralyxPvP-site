@@ -231,6 +231,6 @@ document.addEventListener("keydown", event => {
 
 // Copy Button Listener
 document.querySelectorAll("[data-menu-copy]").forEach(btn => {
-    btn.addEventListener("click", copyServerIp);
+    btn.addEventListener("click", copyIP); // I changed it to avoid Toastify issues... see top very top
 });
 
