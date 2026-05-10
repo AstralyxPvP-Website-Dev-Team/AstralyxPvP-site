@@ -184,20 +184,32 @@
     initTransitions();
     await loadNavbar(); // Crucial: Wait for nav before running other things
 
-    const gmSelect = document.getElementById('gm');
-    if (gmSelect) {
-        await loadGamemodes();
-        await refreshLB();
-        gmSelect.addEventListener('change', refreshLB);
-    }
+    async function loadNavbar() {
+        try {
+            const response = await fetch('Assets/navbar.html');
+            const text = await response.text();
+            const placeholder = document.getElementById('navbar-placeholder');
 
-    document.addEventListener("contextmenu", positionContextMenu);
-    document.addEventListener("mousedown", (e) => { if (contextMenu && !contextMenu.contains(e.target)) hideContextMenu(); });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") hideContextMenu(); });
-    
-    document.querySelectorAll("[data-menu-copy]").forEach(btn => {
-        btn.addEventListener("click", () => { copyIP(); hideContextMenu(); });
-    });
+            if (placeholder) {
+                placeholder.innerHTML = text;
+
+                // Automatically handle the spacing so content doesn't overlap
+                const nav = placeholder.querySelector('nav');
+                const mainContent = document.querySelector('.page-content');
+
+                if (nav && mainContent) {
+                    // We use requestAnimationFrame to ensure the browser has 
+                    // rendered the nav before we measure its height.
+                    requestAnimationFrame(() => {
+                        const navHeight = nav.offsetHeight;
+                        mainContent.style.marginTop = navHeight + "px";
+                    });
+                }
+            }
+        } catch (err) {
+            console.error('Failed to load navbar:', err);
+        }
+    }
 
     setInterval(updateNavStatus, 20000);
 })();
