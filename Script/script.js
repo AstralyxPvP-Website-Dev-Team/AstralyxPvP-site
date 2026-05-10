@@ -243,3 +243,4 @@ document.querySelectorAll("[data-menu-copy]").forEach(btn => {
     btn.addEventListener("click", copyIP); // FUCK YA NO WONDAR
 });
 
+// Note for Dreamlong by IndianCoder3: f*** you bro, jking chill bruh whats my fault LOL!?
