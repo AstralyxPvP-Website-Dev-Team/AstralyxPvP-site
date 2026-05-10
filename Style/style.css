@@ -769,11 +769,12 @@ td {
 
 footer {
   background: #000000;
-  padding: 40px 9%;
+  padding: 20px 9%; 
   text-align: center;
   border-top: 1px solid var(--border);
-  margin-top: auto;
+  margin-top: auto; 
   position: relative;
+  overflow: hidden; 
 }
 
 footer::before {
@@ -784,6 +785,10 @@ footer::before {
   height: 1px;
   background: linear-gradient(to right, transparent, var(--accent), transparent);
   opacity: 0.5;
+}
+footer img {
+    display: block;
+    margin: 0 auto 10px auto; /* Centers it and gives a controlled bottom margin */
 }
 
 .footer-links {
@@ -1090,11 +1095,16 @@ footer::before {
     font-size: 0.75rem;
   }
 
+
   .hero, .wrap, .lb-section, .credits-section, .features {
     padding-left: 5%;
     padding-right: 5%;
     padding-top: 40px;
     padding-bottom: 40px;
+  }
+
+  .credits-section {
+    padding-bottom: 0px !important;
   }
 
   .hero-inner-split {
