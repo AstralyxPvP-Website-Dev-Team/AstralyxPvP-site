@@ -1,14 +1,9 @@
-/* ======================================
-   ASTRALYXPVP JAVASCRIPT
-   ====================================== */
-
-const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
-const IP = "none-subscribe.gl.joinmc.link"
-
+// ======== IMPROVED DEPENDENCY LOADING ========
 (function() {
     if (typeof Toastify === 'undefined') {
         const script = document.createElement('script');
         script.src = "https://cdn.jsdelivr.net/npm/toastify-js";
+        script.id = "toastify-script"; // Added ID to track it
         script.async = true;
         document.head.appendChild(script);
     }
@@ -17,21 +12,40 @@ const IP = "none-subscribe.gl.joinmc.link"
 // ======== HOME PAGE - IP COPY FUNCTION ========
 function copyIP() {
     navigator.clipboard.writeText(IP).then(() => {
-        Toastify({
-            text: "🔥 Server IP copied: " + IP,
-            duration: 3000,
-            gravity: "bottom", 
-            position: "center",
-            stopOnFocus: true, 
-            style: {
-                // Orange to Red gradient
-                background: "linear-gradient(to right, #ff5f6d, #ffc371)", 
-                borderRadius: "8px",
-                fontWeight: "bold",
-                boxShadow: "0 4px 15px rgba(255, 95, 109, 0.3)"
+        // Function to actually trigger the toast
+        const showToast = () => {
+            Toastify({
+                text: "🔥 Server IP copied: " + IP,
+                duration: 3000,
+                gravity: "bottom", 
+                position: "center",
+                stopOnFocus: true, 
+                style: {
+                    background: "linear-gradient(to right, #ff5f6d, #ffc371)", 
+                    borderRadius: "8px",
+                    fontWeight: "bold",
+                    boxShadow: "0 4px 15px rgba(255, 95, 109, 0.3)"
+                }
+            }).showToast();
+        };
+
+        if (typeof Toastify !== 'undefined') {
+            showToast();
+        } else {
+            // If Toastify isn't ready, wait for the script to load
+            const script = document.getElementById('toastify-script');
+            if (script) {
+                script.addEventListener('load', showToast);
+                // Fallback: If it takes too long (e.g. 2 seconds), just use alert
+                setTimeout(() => {
+                   if (typeof Toastify === 'undefined') alert('🔥 Server IP copied: ' + IP);
+                }, 2000);
+            } else {
+                alert('🔥 Server IP copied: ' + IP);
             }
-        }).showToast();
-    }).catch(() => {
+        }
+    }).catch((err) => {
+        console.error("Copy failed", err);
         alert('Server IP: ' + IP);
     });
 }
