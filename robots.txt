@@ -3,10 +3,10 @@
 User-agent: *
 Allow: /
 
-# Prevent indexing of static dependency assets
-Disallow: /Assets/
-Disallow: /Script/
-Disallow: /Style/
+# Prevent indexing of static dependency assets (commented out)
+#Disallow: /Assets/
+#Disallow: /Script/
+#Disallow: /Style/
 
 # Host configuration tells Google this is the master node domain
 Host: https://astralyxpvp.pages.dev/
