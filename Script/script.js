@@ -148,7 +148,7 @@ function positionContextMenu(event) {
 
     contextMenu.classList.remove("hide", "show");
     contextMenu.style.display = "block";
-    contextMenu.style.visibility = "hidden";
+    contextMenu.setAttribute("aria-hidden", "false");
 
     const menuWidth = contextMenu.offsetWidth || 230;
     const menuHeight = contextMenu.offsetHeight || 230;
@@ -158,31 +158,26 @@ function positionContextMenu(event) {
     let x = event.clientX;
     let y = event.clientY;
 
-    if (x + menuWidth > windowWidth) {
-        x = x - menuWidth;
-    }
-
-    if (y + menuHeight > windowHeight) {
-        y = y - menuHeight;
-    }
+    if (x + menuWidth > windowWidth) x -= menuWidth;
+    if (y + menuHeight > windowHeight) y -= menuHeight;
 
     contextMenu.style.left = `${Math.max(0, x)}px`;
     contextMenu.style.top = `${Math.max(0, y)}px`;
 
-    contextMenu.style.visibility = "visible";
-    void contextMenu.offsetHeight; 
-    
-    contextMenu.classList.add("show");
-    contextMenu.setAttribute("aria-hidden", "false");
+    requestAnimationFrame(() => {
+        contextMenu.classList.add("show");
+    });
 }
 
 function hideContextMenu() {
+    // Only proceed if the menu is actually showing
     if (!contextMenu || !contextMenu.classList.contains("show")) return;
 
+    contextMenu.classList.remove("show");
     contextMenu.classList.add("hide");
 
     const handleAnimationEnd = () => {
-        contextMenu.classList.remove("show", "hide");
+        contextMenu.classList.remove("hide");
         contextMenu.style.display = "none";
         contextMenu.setAttribute("aria-hidden", "true");
         contextMenu.removeEventListener("animationend", handleAnimationEnd);
@@ -193,9 +188,11 @@ function hideContextMenu() {
 
 document.addEventListener("contextmenu", positionContextMenu);
 
-document.addEventListener("click", (e) => {
-    if (contextMenu && !contextMenu.contains(e.target)) {
-        hideContextMenu();
+document.addEventListener("mousedown", (e) => {
+    if (contextMenu && contextMenu.classList.contains("show")) {
+        if (!contextMenu.contains(e.target)) {
+            hideContextMenu();
+        }
     }
 });
 
@@ -205,12 +202,11 @@ document.addEventListener("keydown", (event) => {
         if (typeof closeMobileMenu === 'function') closeMobileMenu();
     }
 });
-
 document.querySelectorAll("[data-menu-copy]").forEach(btn => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", () => {
         if (typeof copyIP === 'function') {
-            copyIP(e);
-            hideContextMenu();
+            copyIP();
         }
+        hideContextMenu();
     });
 });
