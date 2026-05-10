@@ -3,7 +3,7 @@
    ====================================== */
 
 const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
-const IP = "none-subscribe.gl.joinmc.link"
+const IP = "none-subscribe.gl.joinmc.link";
 
 // ======== IMPROVED DEPENDENCY LOADING ========
 (function() {
