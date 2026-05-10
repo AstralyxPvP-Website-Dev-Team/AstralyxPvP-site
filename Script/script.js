@@ -2,11 +2,11 @@
    ASTRALYXPVP JAVASCRIPT
    ====================================== */
 const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
+const IP = "wolverine-mixer.gl.joinmc.link"
 // ======== HOME PAGE - IP COPY FUNCTION ========
 function copyIP(){
-  const ip = document.getElementById('server-ip').innerText;
   if(navigator.clipboard?.writeText){
-    navigator.clipboard.writeText(ip).then(() => alert('Server IP copied: ' + ip)).catch(() => alert('Server IP: ' + ip));
+    navigator.clipboard.writeText(IP).then(() => alert('Server IP copied: ' + IP)).catch(() => alert('Server IP: ' + IP));
   } else {
     alert('Server IP: ' + ip);
   }
@@ -179,13 +179,11 @@ const contextMenu = document.getElementById("contextMenu");
 async function copyServerIp() {
     const toast = document.getElementById("toast");
     const toastText = document.getElementById("toastText");
-    const serverIpText = document.getElementById("serverIpText");
-    const ip = document.getElementById('server-ip').innerText;
     try {
-        await navigator.clipboard.writeText(ip);
-        showToast("Server IP copied: " + ip);
+        await navigator.clipboard.writeText(IP);
+        showToast("Server IP copied: " + IP);
     } catch (error) {
-        showToast("Server IP: " + ip);
+        showToast("Server IP: " + IP);
     }
 }
 
