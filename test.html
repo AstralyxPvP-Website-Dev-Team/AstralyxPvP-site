@@ -35,16 +35,15 @@
 
 <body class="page-enter">
 
-  <div id="navbar-placeholder"></div>
-
+  <div id="nav">
   <script>
     fetch('Assets/navbar.html')
       .then(res => res.text())
       .then(data => {
-        document.getElementById('navbar-placeholder').innerHTML = data;
+        document.getElementById('nav').innerHTML = data;
       });
   </script>
-
+  </div>
   <main class="page-content">
     <section class="hero">
       <div class="hero-inner-split">

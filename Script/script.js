@@ -221,3 +221,23 @@ document.querySelectorAll("[data-menu-copy]").forEach(btn => {
         hideContextMenu();
     });
 });
+
+function syncTitle() {
+    window.parent.postMessage({
+        type: 'updateTitle',
+        title: document.title
+    }, '*');
+}
+syncTitle();
+const targetNode = document.querySelector('title');
+    if (targetNode) {
+        const observer = new MutationObserver((mutations) => {
+            syncTitle();
+        });
+        observer.observe(targetNode, { 
+            childList: true, 
+            characterData: true, 
+            subtree: true 
+        });
+    }
+setInterval(syncTitle, 2000);
