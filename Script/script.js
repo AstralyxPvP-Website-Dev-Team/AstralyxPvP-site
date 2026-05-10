@@ -2,44 +2,40 @@
     const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
     const IP = "none-subscribe.gl.joinmc.link";
 
-    // --- HELPER FUNCTIONS ---
     const escapeHtml = (s) => (s ?? '').toString().replace(/[&<>"']/g, c => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
 
-    // --- CONTEXT MENU LOGIC ---
     const contextMenu = document.getElementById("contextMenu");
 
     if (contextMenu) {
-        // Trigger menu on right-click
         window.addEventListener("contextmenu", (e) => {
             e.preventDefault();
             contextMenu.style.display = "block";
-            
-            // Prevent menu from going off-screen
+        
             const x = (e.clientX + 230 > window.innerWidth) ? e.clientX - 230 : e.clientX;
-            
+            const y = e.clientY;
+        
             contextMenu.style.left = `${Math.max(0, x)}px`;
             contextMenu.style.top = `${Math.max(0, y)}px`;
-            
-            // Small delay to allow the "show" class animation to trigger
+        
             requestAnimationFrame(() => {
                 contextMenu.classList.remove("hide");
                 contextMenu.classList.add("show");
             });
         });
 
-        // Hide menu when clicking elsewhere
         window.addEventListener("click", () => {
             if (contextMenu.classList.contains("show")) {
                 contextMenu.classList.remove("show");
                 contextMenu.classList.add("hide");
                 setTimeout(() => {
                     contextMenu.style.display = "none";
-                }, 200); // Matches your CSS transition time
+                }, 200);
             }
         });
     }
+
     async function initNavbar() {
         const container = document.getElementById('navbar-placeholder');
         if (!container) return;
@@ -51,13 +47,11 @@
             const html = await response.text();
             container.innerHTML = html;
 
-            // Highlight Active Link
             const currentPath = window.location.pathname.split("/").pop() || "index.html";
             container.querySelectorAll('.nav-links a').forEach(link => {
                 if(link.getAttribute('href') === currentPath) link.classList.add('active');
             });
 
-            // Adjust layout height
             const nav = container.querySelector('nav');
             const mainContent = document.querySelector('.page-content');
             if (nav && mainContent) {
@@ -66,7 +60,6 @@
                 });
             }
 
-            // Initial status update
             updateNavStatus();
         } catch (error) {
             console.error('Navbar error:', error);
@@ -92,12 +85,10 @@
         }
     }
 
-    // --- LEADERBOARD ---
     async function initLeaderboard() {
         const select = document.getElementById('gm');
         if (!select) return;
 
-        // 1. Load Gamemodes
         try {
             const res = await fetch(`${API_BASE}?gamemode=true`);
             const data = await res.json();
@@ -105,17 +96,12 @@
 
             if (gms.length > 0) {
                 select.innerHTML = gms.map(gm => `<option value="${gm}">${gm}</option>`).join('');
-                
-                // Check URL params for gamemode
                 const urlGm = new URLSearchParams(window.location.search).get('gamemode');
                 if (urlGm && gms.includes(urlGm)) select.value = urlGm;
             }
         } catch (err) { console.error("GM Load Error:", err); }
 
-        // 2. Attach Event Listener
         select.addEventListener('change', refreshLB);
-        
-        // 3. Initial Load
         refreshLB();
     }
 
@@ -148,7 +134,6 @@
             });
             out.innerHTML = html + '</tbody></table>';
 
-            // Sync URL
             const u = new URL(location.href);
             u.searchParams.set('gamemode', gmSelect.value);
             history.replaceState({}, '', u.toString());
@@ -157,15 +142,13 @@
         }
     }
 
-    // --- INITIALIZE EVERYTHING ---
     document.body.classList.add('page-enter');
     
-    await initNavbar();      // Load nav first
-    await initLeaderboard(); // Then load leaderboard logic
+    await initNavbar();      
+    await initLeaderboard(); 
 
     setInterval(updateNavStatus, 20000);
 
-    // Global click listener for transitions
     document.addEventListener('click', e => {
         const a = e.target.closest('a');
         if(!a || a.target === '_blank' || a.href.startsWith('http') || a.hash) return;
