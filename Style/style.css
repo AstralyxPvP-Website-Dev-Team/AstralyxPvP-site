@@ -99,6 +99,15 @@ body {
   position: relative;
 }
 
+.icon-sword {
+    display: inline-block;
+    width: 24px;  /* Adjust size as needed */
+    height: 24px;
+    background-color: red; /* This sets the color! */
+    mask: url('Assets/swords.svg') no-repeat center;
+    -webkit-mask: url('Assets/swords.svg') no-repeat center;
+}
+
 body::before {
   content: '';
   position: fixed;
