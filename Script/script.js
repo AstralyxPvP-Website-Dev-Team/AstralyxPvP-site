@@ -17,38 +17,26 @@ const IP = "none-subscribe.gl.joinmc.link";
     }
 })();
 
-function copyIP() {
-    navigator.clipboard.writeText(IP).then(() => {
-        const showToast = () => {
-            Toastify({
-                text: "🔥 Server IP copied: " + IP,
-                duration: 3000,
-                gravity: "bottom", 
-                position: "center",
-                className: "sticky-ip-toast", // Matches the CSS above
-                stopOnFocus: true, 
-                style: {
-                    background: "linear-gradient(to right, #ff5f6d, #ffc371)", 
-                    borderRadius: "8px",
-                    fontWeight: "bold",
-                    boxShadow: "0 4px 15px rgba(0,0,0,0.3)"
-                }
-            }).showToast();
-        };
-
-        if (typeof Toastify !== 'undefined') {
-            showToast();
-        } else {
-            const script = document.getElementById('toastify-script');
-            if (script) {
-                script.addEventListener('load', showToast);
-            } else {
-                alert('🔥 IP Copied: ' + IP);
-            }
-        }
-    }).catch(() => alert('IP: ' + IP));
-}
-
+Toastify({
+    text: "🔥 Server IP copied: " + IP,
+    duration: 3000,
+    gravity: "bottom", 
+    position: "center",
+    className: "sticky-ip-toast", 
+    stopOnFocus: true, 
+    // Adding an offset can help if 'bottom: 30px' in CSS feels too tight
+    offset: {
+        y: 10 
+    },
+    style: {
+        background: "linear-gradient(to right, #ff5f6d, #ffc371)", 
+        borderRadius: "8px",
+        fontWeight: "bold",
+        boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+        // Ensure the internal Toastify padding doesn't mess with your centering
+        margin: "0" 
+    }
+}).showToast();
 
 function escapeHtml(s) {
   return (s ?? '').toString().replace(/[&<>"']/g, c => ({
