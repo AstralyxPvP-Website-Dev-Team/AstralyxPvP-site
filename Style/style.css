@@ -99,13 +99,13 @@ body {
   position: relative;
 }
 
-.icon-sword {
+.icon-swords {
     display: inline-block;
-    width: 24px;  /* Adjust size as needed */
-    height: 24px;
-    background-color: red; /* This sets the color! */
-    mask: url('Assets/swords.svg') no-repeat center;
-    -webkit-mask: url('Assets/swords.svg') no-repeat center;
+    width: 40px;  
+    height: 40px;
+    background-color: rgba(255, 215, 0, 0.4); 
+    -webkit-mask: url('Assets/swords.svg') no-repeat center / contain;
+    mask: url('Assets/swords.svg') no-repeat center / contain;
 }
 
 body::before {
