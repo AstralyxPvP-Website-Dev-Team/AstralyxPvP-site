@@ -7,7 +7,40 @@
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
 
-    // --- NAVBAR & STATUS ---
+    // --- CONTEXT MENU LOGIC ---
+    const contextMenu = document.getElementById("contextMenu");
+
+    if (contextMenu) {
+        // Trigger menu on right-click
+        window.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            contextMenu.style.display = "block";
+            
+            // Prevent menu from going off-screen
+            const x = (e.clientX + 230 > window.innerWidth) ? e.clientX - 230 : e.clientX;
+            const y = (e.clientY + 230 > window.innerHeight) ? e.clientY - 230 : e.clientY;
+            
+            contextMenu.style.left = `${Math.max(0, x)}px`;
+            contextMenu.style.top = `${Math.max(0, y)}px`;
+            
+            // Small delay to allow the "show" class animation to trigger
+            requestAnimationFrame(() => {
+                contextMenu.classList.remove("hide");
+                contextMenu.classList.add("show");
+            });
+        });
+
+        // Hide menu when clicking elsewhere
+        window.addEventListener("click", () => {
+            if (contextMenu.classList.contains("show")) {
+                contextMenu.classList.remove("show");
+                contextMenu.classList.add("hide");
+                setTimeout(() => {
+                    contextMenu.style.display = "none";
+                }, 200); // Matches your CSS transition time
+            }
+        });
+    }
     async function initNavbar() {
         const container = document.getElementById('navbar-placeholder');
         if (!container) return;
