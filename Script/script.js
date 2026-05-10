@@ -1,3 +1,10 @@
+/* ======================================
+   ASTRALYXPVP JAVASCRIPT
+   ====================================== */
+
+const API_BASE = "https://astralyxpvpweb.pages.dev/api/";
+const IP = "none-subscribe.gl.joinmc.link"
+
 // ======== IMPROVED DEPENDENCY LOADING ========
 (function() {
     if (typeof Toastify === 'undefined') {
@@ -49,7 +56,6 @@ function copyIP() {
         alert('Server IP: ' + IP);
     });
 }
-
 // ======== LEADERBOARD PAGE - UTILITY FUNCTIONS ========
 function escapeHtml(s) {
   return (s ?? '').toString().replace(/[&<>"']/g, c => ({
