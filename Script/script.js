@@ -22,16 +22,16 @@ function copyIP() {
         const showToast = () => {
             Toastify({
                 text: "🔥 Server IP copied: " + IP,
-                duration: 4000, // Slightly longer so you can see it while scrolling
+                duration: 3000,
                 gravity: "bottom", 
                 position: "center",
+                className: "sticky-ip-toast", // Matches the CSS above
                 stopOnFocus: true, 
-                className: "sticky-ip-toast", // This is the key!
                 style: {
                     background: "linear-gradient(to right, #ff5f6d, #ffc371)", 
                     borderRadius: "8px",
                     fontWeight: "bold",
-                    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.4)"
+                    boxShadow: "0 4px 15px rgba(0,0,0,0.3)"
                 }
             }).showToast();
         };
@@ -39,17 +39,14 @@ function copyIP() {
         if (typeof Toastify !== 'undefined') {
             showToast();
         } else {
-            // Fallback for race conditions
             const script = document.getElementById('toastify-script');
             if (script) {
                 script.addEventListener('load', showToast);
             } else {
-                alert('🔥 Server IP copied: ' + IP);
+                alert('🔥 IP Copied: ' + IP);
             }
         }
-    }).catch(() => {
-        alert('Server IP: ' + IP);
-    });
+    }).catch(() => alert('IP: ' + IP));
 }
 
 
