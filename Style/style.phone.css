@@ -1,367 +1,164 @@
 /* ==========================================================================
-   MOBILE OVERRIDES (style.phone.css) - EXPANDED EDITION
-   Comprehensive mobile viewport scaling for infinite scroll layouts
+   ULTIMATE MOBILE STABILIZER (style.phone.css)
+   Fixes: Footer gaps, bouncing layouts, navbar overlap, and centering
    ========================================================================== */
 
 @media screen and (max-width: 768px) {
   
-  /* --- Global Resets & Layout --- */
-  :root {
-    --nav-height: 30px;
-  }
-
-  body {
+  /* --- 1. Layout & Anti-Bounce Fixes --- */
+  html, body {
+    height: auto; 
+    min-height: 100dvh; /* Uses Dynamic Viewport Height to prevent bouncing */
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
-    width: 100%;
-    /* Ensure background gradients scale smoothly on long scrolls */
-    background-size: 100% auto; 
-  }
-
-  .page-content {
-    padding-top: calc(var(--nav-height) + 15px);
-  }
-
-  .hero,
-  .wrap,
-  .lb-section,
-  .credits-section,
-  .features-grid {
-    padding-top: 15px;
-    padding-bottom: 50px;
-  }
-
-  /* --- Typography Adjustments --- */
-  .title {
-    font-size: 1.4rem;
-    letter-spacing: 0.1em;
-    margin-bottom: 8px;
-  }
-
-  .subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-    padding: 0 15px;
-  }
-
-  .section-title {
-    font-size: 1.8rem;
-    margin-bottom: 35px;
-  }
-
-  .section-title::after {
-    width: 80px; /* Shorter glow bar for mobile */
-    bottom: -8px;
-  }
-
-  .intro-text {
-    font-size: 0.9rem;
-    margin-bottom: 35px;
-    padding: 0 15px;
-    line-height: 1.6;
-  }
-
-  .title-astra {
-    margin-top: 30px !important;
-  }
-
-  /* --- Lists --- */
-  #list {
-    padding-left: 1rem;
-  }
-
-  li {
-    margin-bottom: 0.4rem;
-    font-size: 0.9rem;
-  }
-
-  /* --- Navigation Bar (Sticky & Compact) --- */
-  nav {
-    top: 15px;
-    width: 95%;
-    padding: 12px 18px;
+    display: flex;
     flex-direction: column;
-    gap: 12px;
-    border-radius: 25px;
+  }
+
+  /* Kills the gap below the footer */
+  footer {
+    margin-top: auto !important;
+    margin-bottom: 0 !important;
+    padding: 40px 20px !important;
+    flex-shrink: 0;
+  }
+
+  /* --- 2. Compact Two-Line Navbar --- */
+  nav {
+    top: 10px !important;
+    width: 94% !important;
+    padding: 10px 15px !important;
+    gap: 4px !important; /* Extremely tight row spacing */
+    flex-direction: column !important;
+    border-radius: 20px !important;
+    margin: 0 auto !important;
   }
 
   .nav-left {
     width: 100%;
     justify-content: space-between;
-    gap: 10px;
-  }
-
-  .logo {
-    font-size: 1.1rem;
-    gap: 8px;
-  }
-
-  .logo img {
-    height: 28px;
-  }
-
-  .server-pill {
-    padding: 4px 10px;
-    font-size: 0.65rem;
+    gap: 0 !important;
   }
 
   .nav-links {
     width: 100%;
-    justify-content: center;
+    justify-content: center !important;
+    gap: 10px !important;
     flex-wrap: wrap;
-    gap: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 6px;
   }
 
   .nav-links a {
-    font-size: 0.75rem;
+    font-size: 0.7rem !important;
+    white-space: nowrap;
   }
 
-  .nav-cta {
-    padding: 6px 14px !important;
-    font-size: 0.75rem !important;
+  .logo img {
+    height: 24px !important;
   }
 
-  /* --- Hero Section (Stacked Layout) --- */
+  .server-pill {
+    font-size: 0.6rem !important;
+    padding: 3px 8px !important;
+  }
+
+  /* --- 3. Hero & Centering Fixes --- */
   .hero-inner-split {
-    flex-direction: column-reverse;
-    gap: 30px;
-    padding: 0 20px;
-    text-align: center;
+    flex-direction: column-reverse !important;
+    margin-top: 100px !important; /* Massive buffer so Title is never behind Nav */
+    text-align: center !important;
+    gap: 30px !important;
+    padding: 0 20px !important;
   }
 
   .hero-text {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: center !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .hero-text h1 {
-    font-size: clamp(1.8rem, 8vw, 2.8rem);
-    margin-bottom: 15px;
+    font-size: 2.2rem !important;
+    text-align: center !important;
+    width: 100% !important;
+    margin-bottom: 15px !important;
   }
 
   .hero-text p {
-    font-size: 0.95rem;
-    margin-bottom: 25px;
-    padding: 0 10px;
+    text-align: center !important;
+    margin: 0 auto 30px auto !important;
+    font-size: 0.95rem !important;
+    max-width: 100% !important;
   }
 
   .hero-image {
-    justify-content: center;
-    width: 100%;
+    width: 100% !important;
+    justify-content: center !important;
   }
 
   .hero-logo-main {
-    max-width: 260px;
-    width: 80%;
+    max-width: 220px !important;
   }
 
-  /* --- Buttons --- */
-  .hero-btn {
-    padding: 14px 28px;
-    font-size: 0.9rem;
+  /* --- 4. Content Containers (The "Infinite" look) --- */
+  .page-content {
+    padding-top: 0 !important; /* Handled by Hero margin */
   }
 
-  .hero-btn.mini {
-    padding: 8px 16px;
-    font-size: 0.75rem;
+  .panel, .lb-panel, .credit-card, .feature-card {
+    margin: 10px 15px !important;
+    width: calc(100% - 30px) !important;
+    padding: 20px !important;
   }
 
-  .btn {
-    padding: 8px 16px;
-    font-size: 0.72rem;
+  .features-grid, .credits-grid, .vote-grid {
+    grid-template-columns: 1fr !important; /* Strict single column */
+    gap: 15px !important;
   }
 
-  /* --- Panels & Doc Blocks --- */
-  .panel {
-    padding: 16px;
-    border-radius: 14px;
-    margin: 0 15px;
-  }
-
-  .doc-container {
-    border-radius: 12px;
-    margin: 0 10px;
-  }
-
-  .doc-block {
-    padding: 12px;
-    margin-bottom: 12px;
-    border-radius: 10px;
-  }
-
-  .doc-block h3 {
-    font-size: 0.85rem;
-  }
-
-  .doc-embed {
-    height: 50vh; /* Scaled down iframe/embeds for phone screens */
-  }
-
-  /* --- Grids (Features, Credits, Votes) --- */
-  .features {
-    padding: 40px 5%;
-  }
-
-  .features-grid,
-  .credits-grid,
-  .vote-grid {
-    grid-template-columns: 1fr; /* Stack everything in one clean column */
-    gap: 15px;
-    padding: 0 10px;
-  }
-
-  /* --- Feature Cards --- */
-  .feature-card {
-    padding: 25px 20px;
-    border-radius: 18px;
-  }
-
-  .icon-box {
-    height: 50px;
-    margin-bottom: 15px;
-  }
-
-  .custom-icon {
-    width: 32px;
-    height: 32px;
-  }
-
-  .feature-card i,
-  .icon-box i {
-    font-size: 2rem;
-  }
-
-  .mc-icon {
-    height: 38px;
-  }
-
-  .feature-card h3 {
-    font-size: 1.15rem;
-    margin-bottom: 10px;
-  }
-
-  .feature-card p {
-    font-size: 0.85rem;
-  }
-
-  .feature-card ul {
-    margin-top: 10px;
-  }
-
-  .feature-card li {
-    font-size: 0.85rem;
-    margin-bottom: 8px;
-  }
-
-  /* --- Leaderboard Section --- */
-  .lb-subtitle {
-    margin-bottom: 20px;
-    margin-top: -15px;
-    font-size: 0.85rem;
-  }
-
+  /* --- 5. Fix Leaderboard Table Overflow --- */
   .lb-panel {
-    padding: 12px;
-    border-radius: 14px;
-    margin: 0 10px;
+    overflow-x: hidden !important;
   }
 
-  .controls {
-    gap: 8px;
-    margin-bottom: 15px;
-  }
-
-  select {
-    padding: 8px 14px;
-    font-size: 0.8rem;
-    width: 100%;
-    max-width: 100%; /* Take full available width inside the panel on mobile */
-  }
-
-  /* Table Horizontal Scrolling Safety */
   table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap; 
-    width: 100%;
+    display: block !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    width: 100% !important;
   }
 
-  th {
-    padding: 10px 8px;
-    font-size: 0.65rem;
+  /* --- 6. Interaction Targets (Touch Friendly) --- */
+  .hero-btn {
+    width: 100% !important;
+    max-width: 300px !important;
+    padding: 16px !important;
   }
 
-  td {
-    padding: 10px 8px;
-    font-size: 0.75rem;
-  }
-
-  /* --- Vote Links --- */
-  .vote-link {
-    padding: 12px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-  }
-
-  /* --- Credits Cards --- */
-  .credits-title {
-    font-size: 1.8rem;
-    margin-bottom: 25px;
-  }
-
-  .credit-card {
-    padding: 20px;
-    border-radius: 16px;
-  }
-
-  .credit-icon {
-    font-size: 2rem;
-    margin-bottom: 10px;
-  }
-
-  .credit-card h3 {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-  }
-
-  .credit-item {
-    font-size: 0.85rem;
-    flex-wrap: wrap; /* Prevent long text/usernames from overflowing */
-  }
-
-  /* --- Context Menu Override --- */
   .context-menu {
-    width: 190px;
-    border-radius: 14px;
+    width: 90vw !important;
+    left: 5vw !important;
+    bottom: 20px !important;
+    top: auto !important;
+    position: fixed !important;
   }
 
-  .context-menu button, 
-  .context-menu a {
-    font-size: 14px;
-    padding: 0.6rem 0.7rem;
-    gap: 0.5rem;
+  .context-menu button, .context-menu a {
+    padding: 15px !important;
+    font-size: 1.1rem !important;
   }
 
-  /* --- Footer --- */
-  footer {
-    padding: 25px 5% !important;
-  }
-
+  /* --- 7. Footer Cleanup --- */
   .footer-links {
-    gap: 10px;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column !important;
+    gap: 15px !important;
   }
 
   .footer-links a {
-    font-size: 0.85rem;
-    padding: 6px 0; /* Easier to tap with thumbs */
-  }
-
-  .credits {
-    margin-top: 20px;
-    font-size: 0.55rem;
-    line-height: 1.4;
+    font-size: 0.9rem !important;
+    padding: 5px !important;
   }
 }
