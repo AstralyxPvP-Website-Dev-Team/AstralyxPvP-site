@@ -1,181 +1,102 @@
 /* ==========================================================================
-   MOBILE & TABLET OPTIMIZATIONS
+   MOBILE-ONLY OVERRIDES (Only triggers on phones/tablets)
    ========================================================================== */
 
 @media (max-width: 900px) {
-  :root {
-    --nav-height: auto;
+  /* 1. Fix the Overlap: Push hero content down so the Nav doesn't cover it */
+  .hero {
+    padding-top: 180px !important; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  /* 1. Navigation Refactor */
+  /* 2. Navigation: Logo at the top, links below */
   nav {
-    flex-direction: column;
+    flex-direction: column !important;
+    padding: 15px !important;
+    width: 94% !important;
+    height: auto !important;
     gap: 15px;
-    padding: 15px 20px;
-    top: 10px;
-    width: 94%;
-    border-radius: 25px;
   }
 
   .nav-left {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .nav-links {
+    order: 1; /* Branding first */
     width: 100%;
     justify-content: center;
-    gap: 15px;
-    padding-top: 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    flex-wrap: wrap; /* Prevents overflow if links are long */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+  }
+
+  /* 3. Link Grid: Organizes links so they don't overlap each other */
+  .nav-links {
+    order: 2;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 10px;
+    width: 100%;
   }
 
   .nav-links a {
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
+    font-size: 0.7rem !important;
+    text-align: center;
+    padding: 5px 0;
   }
 
-  /* 2. Hero Section Flow */
-  .hero {
-    padding: 120px 5% 60px 5%; /* Extra top padding for sticky nav */
+  /* Make the Store button span the whole bottom row of the nav */
+  .nav-cta {
+    grid-column: span 3;
+    margin-top: 5px;
+    text-align: center;
   }
 
+  /* 4. Marketing Priority: Hero Logo ABOVE Hero Text */
   .hero-inner-split {
-    flex-direction: column-reverse; /* Puts image above text on mobile */
-    text-align: center;
-    gap: 40px;
-  }
-
-  .hero-text {
-    text-align: center;
-    width: 100%;
-  }
-
-  .hero-text h1 {
-    font-size: clamp(1.8rem, 8vw, 2.5rem);
-    line-height: 1.2;
+    flex-direction: column !important; /* Forces Big Logo -> Then Text */
+    gap: 30px;
   }
 
   .hero-image {
-    justify-content: center;
+    order: 1; /* Big Logo first */
     width: 100%;
   }
 
   .hero-logo-main {
-    max-width: 240px; /* Smaller logo for mobile screens */
+    max-width: 200px !important;
   }
 
-  /* 3. Section Adjustments */
-  .features, .lb-section, .credits-section, .wrap {
-    padding: 40px 5%;
-  }
-
-  .section-title {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-  }
-}
-
-@media (max-width: 640px) {
-  /* 4. Button & Interaction Optimization */
-  .hero-btn {
-    width: 100%; /* Full width buttons are easier to tap on phones */
-    padding: 14px 20px;
-    font-size: 0.95rem;
-  }
-
-  /* 5. Feature & Credit Grids */
-  .features-grid, 
-  .credits-grid, 
-  .vote-grid {
-    grid-template-columns: 1fr; /* Single column for readability */
-    gap: 20px;
-  }
-
-  .feature-card, .credit-card {
-    padding: 25px 20px;
-  }
-
-  /* 6. Leaderboard Table Handling */
-  .lb-panel {
-    padding: 10px;
-    border-radius: 15px;
-    overflow-x: auto; /* Enables horizontal swipe for wide tables */
-    -webkit-overflow-scrolling: touch;
-  }
-
-  table {
-    min-width: 500px; /* Ensures table doesn't compress too much */
-    font-size: 0.85rem;
-  }
-
-  th, td {
-    padding: 12px 8px;
-  }
-
-  /* 7. Navbar Specifics for tiny screens */
-  .nav-links {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2x2 grid for links */
+  .hero-text {
+    order: 2; /* Text below logo */
     text-align: center;
+    width: 100%;
   }
 
-  .nav-cta {
-    grid-column: span 2; /* "Join" button takes full width of link grid */
-    margin-top: 5px;
+  .hero-text h1 {
+    font-size: 2.2rem !important;
   }
 
-  /* 8. Utility & Spacing */
-  .subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-  }
-
-  footer {
-    padding: 40px 5% !important;
-  }
-
-  .footer-links {
-    flex-direction: column;
-    gap: 15px;
-  }
-}
-
-/* Fix for context menu on touch devices */
-@media (hover: none) {
-  .feature-card:hover {
-    transform: none; /* Disables hover lift on touch to avoid 'stuck' states */
+  /* 5. Mobile Button Stacking */
+  .hero-btn {
+    width: 100%;
+    max-width: 320px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
-  .hero-text h1 {
-    font-size: 2rem;
-  }
-
-  .logo span {
-    font-size: 0.9rem;
-  }
-
-  .logo img {
-    height: 30px;
-  }
-
+  /* Ultra-compact grid for very small screens */
   .nav-links {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    text-align: center;
+    grid-template-columns: repeat(2, 1fr);
   }
-
+  
   .nav-cta {
     grid-column: span 2;
     margin-top: 5px;
   }
-
-  .sticky-ip-toast {
-    width: 90%;
-    font-size: 13px;
-    bottom: 15px !important;
+  
+  .hero-text h1 {
+    font-size: 1.8rem !important;
   }
 }
