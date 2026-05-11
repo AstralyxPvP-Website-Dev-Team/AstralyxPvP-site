@@ -1,119 +1,367 @@
 /* ==========================================================================
-   MOBILE-ONLY OVERRIDES (Optimized Centering & Spacing)
+   MOBILE OVERRIDES (style.phone.css) - EXPANDED EDITION
+   Comprehensive mobile viewport scaling for infinite scroll layouts
    ========================================================================== */
 
-@media (max-width: 900px) {
-  /* 1. Clear Overlap & Center Hero Content */
-  .hero {
-    padding-top: 200px !important; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center; /* Centers all text within the hero */
+@media screen and (max-width: 768px) {
+  
+  /* --- Global Resets & Layout --- */
+  :root {
+    --nav-height: 30px;
   }
 
-  /* 2. Navigation: Centering the Logo & Status */
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    /* Ensure background gradients scale smoothly on long scrolls */
+    background-size: 100% auto; 
+  }
+
+  .page-content {
+    padding-top: calc(var(--nav-height) + 15px);
+  }
+
+  .hero,
+  .wrap,
+  .lb-section,
+  .credits-section,
+  .features-grid {
+    padding-top: 15px;
+    padding-bottom: 50px;
+  }
+
+  /* --- Typography Adjustments --- */
+  .title {
+    font-size: 1.4rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    padding: 0 15px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+  }
+
+  .section-title::after {
+    width: 80px; /* Shorter glow bar for mobile */
+    bottom: -8px;
+  }
+
+  .intro-text {
+    font-size: 0.9rem;
+    margin-bottom: 35px;
+    padding: 0 15px;
+    line-height: 1.6;
+  }
+
+  .title-astra {
+    margin-top: 30px !important;
+  }
+
+  /* --- Lists --- */
+  #list {
+    padding-left: 1rem;
+  }
+
+  li {
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  /* --- Navigation Bar (Sticky & Compact) --- */
   nav {
-    flex-direction: column !important;
-    padding: 18px 15px !important;
-    width: 92% !important;
-    gap: 15px;
+    top: 15px;
+    width: 95%;
+    padding: 12px 18px;
+    flex-direction: column;
+    gap: 12px;
+    border-radius: 25px;
   }
 
   .nav-left {
-    order: 1;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centers Logo & Status pill horizontally */
+    justify-content: space-between;
     gap: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 12px;
   }
 
-  /* 3. Link Grid: Tightening spaces & increasing font size */
+  .logo {
+    font-size: 1.1rem;
+    gap: 8px;
+  }
+
+  .logo img {
+    height: 28px;
+  }
+
+  .server-pill {
+    padding: 4px 10px;
+    font-size: 0.65rem;
+  }
+
   .nav-links {
-    order: 2;
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns makes links closer & easier to hit */
-    gap: 8px 15px; /* Reduced vertical gap, controlled horizontal gap */
-    width: auto; /* Shrinks the grid to fit the content rather than stretching */
-    margin: 0 auto;
-    justify-items: center; /* Centers the links within the grid cells */
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
   .nav-links a {
-    font-size: 0.9rem !important; /* Increased size for better readability */
-    text-align: center;
-    padding: 8px 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    font-size: 0.75rem;
   }
 
-  /* Store button centering */
   .nav-cta {
-    grid-column: span 2;
-    margin-top: 10px;
-    width: 100%;
-    text-align: center;
-    justify-content: center;
+    padding: 6px 14px !important;
+    font-size: 0.75rem !important;
   }
 
-  /* 4. Marketing Layout: Big Logo -> Then Centered Text */
+  /* --- Hero Section (Stacked Layout) --- */
   .hero-inner-split {
-    flex-direction: column !important;
-    gap: 25px;
-    align-items: center;
-  }
-
-  .hero-image {
-    order: 1;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-
-  .hero-logo-main {
-    max-width: 180px !important;
+    flex-direction: column-reverse;
+    gap: 30px;
+    padding: 0 20px;
+    text-align: center;
   }
 
   .hero-text {
-    order: 2;
     text-align: center;
-    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Ensures h1 and p are centered */
-  }
-
-  .hero-text h1 {
-    font-size: 2.4rem !important;
-    margin-bottom: 12px;
-  }
-
-  /* 5. Centering Buttons below text */
-  .hero-btn {
-    width: 100%;
-    max-width: 320px;
-    margin: 8px auto !important; /* Centers button and provides consistent vertical spacing */
-    display: flex;
-    justify-content: center;
     align-items: center;
   }
-}
 
-@media (max-width: 480px) {
-  /* Final tweaks for very small screens */
   .hero-text h1 {
-    font-size: 2rem !important;
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    margin-bottom: 15px;
   }
-  
-  .nav-links {
-    gap: 5px 10px; /* Even tighter for small screens */
+
+  .hero-text p {
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    padding: 0 10px;
   }
-  
-  .nav-links a {
-    font-size: 0.85rem !important;
+
+  .hero-image {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-logo-main {
+    max-width: 260px;
+    width: 80%;
+  }
+
+  /* --- Buttons --- */
+  .hero-btn {
+    padding: 14px 28px;
+    font-size: 0.9rem;
+  }
+
+  .hero-btn.mini {
+    padding: 8px 16px;
+    font-size: 0.75rem;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 0.72rem;
+  }
+
+  /* --- Panels & Doc Blocks --- */
+  .panel {
+    padding: 16px;
+    border-radius: 14px;
+    margin: 0 15px;
+  }
+
+  .doc-container {
+    border-radius: 12px;
+    margin: 0 10px;
+  }
+
+  .doc-block {
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+  }
+
+  .doc-block h3 {
+    font-size: 0.85rem;
+  }
+
+  .doc-embed {
+    height: 50vh; /* Scaled down iframe/embeds for phone screens */
+  }
+
+  /* --- Grids (Features, Credits, Votes) --- */
+  .features {
+    padding: 40px 5%;
+  }
+
+  .features-grid,
+  .credits-grid,
+  .vote-grid {
+    grid-template-columns: 1fr; /* Stack everything in one clean column */
+    gap: 15px;
+    padding: 0 10px;
+  }
+
+  /* --- Feature Cards --- */
+  .feature-card {
+    padding: 25px 20px;
+    border-radius: 18px;
+  }
+
+  .icon-box {
+    height: 50px;
+    margin-bottom: 15px;
+  }
+
+  .custom-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .feature-card i,
+  .icon-box i {
+    font-size: 2rem;
+  }
+
+  .mc-icon {
+    height: 38px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+  }
+
+  .feature-card p {
+    font-size: 0.85rem;
+  }
+
+  .feature-card ul {
+    margin-top: 10px;
+  }
+
+  .feature-card li {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+
+  /* --- Leaderboard Section --- */
+  .lb-subtitle {
+    margin-bottom: 20px;
+    margin-top: -15px;
+    font-size: 0.85rem;
+  }
+
+  .lb-panel {
+    padding: 12px;
+    border-radius: 14px;
+    margin: 0 10px;
+  }
+
+  .controls {
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+
+  select {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    width: 100%;
+    max-width: 100%; /* Take full available width inside the panel on mobile */
+  }
+
+  /* Table Horizontal Scrolling Safety */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap; 
+    width: 100%;
+  }
+
+  th {
+    padding: 10px 8px;
+    font-size: 0.65rem;
+  }
+
+  td {
+    padding: 10px 8px;
+    font-size: 0.75rem;
+  }
+
+  /* --- Vote Links --- */
+  .vote-link {
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+  }
+
+  /* --- Credits Cards --- */
+  .credits-title {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+  }
+
+  .credit-card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .credit-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  .credit-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .credit-item {
+    font-size: 0.85rem;
+    flex-wrap: wrap; /* Prevent long text/usernames from overflowing */
+  }
+
+  /* --- Context Menu Override --- */
+  .context-menu {
+    width: 190px;
+    border-radius: 14px;
+  }
+
+  .context-menu button, 
+  .context-menu a {
+    font-size: 14px;
+    padding: 0.6rem 0.7rem;
+    gap: 0.5rem;
+  }
+
+  /* --- Footer --- */
+  footer {
+    padding: 25px 5% !important;
+  }
+
+  .footer-links {
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-links a {
+    font-size: 0.85rem;
+    padding: 6px 0; /* Easier to tap with thumbs */
+  }
+
+  .credits {
+    margin-top: 20px;
+    font-size: 0.55rem;
+    line-height: 1.4;
   }
 }
