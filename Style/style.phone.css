@@ -1,164 +1,123 @@
 /* ==========================================================================
-   ULTIMATE MOBILE STABILIZER (style.phone.css)
-   Fixes: Footer gaps, bouncing layouts, navbar overlap, and centering
+   STABILIZED MOBILE OVERRIDES (style.phone.css)
+   Targeting: Footer Bounce Fix & Navbar Stickiness
    ========================================================================== */
 
 @media screen and (max-width: 768px) {
   
-  /* --- 1. Layout & Anti-Bounce Fixes --- */
-  html, body {
-    height: auto; 
-    min-height: 100dvh; /* Uses Dynamic Viewport Height to prevent bouncing */
+  /* --- 1. THE STABILIZER (Prevents moving up/down) --- */
+  html {
+    height: -webkit-fill-available; /* Fixes iOS specific bounce */
+  }
+
+  body {
+    display: block !important; /* Disabling flex-column on body stops the 'bounce' */
+    min-height: 100vh;
+    min-height: 100dvh;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
+    position: relative;
   }
 
-  /* Kills the gap below the footer */
+  /* Anchor the footer to the bottom of the page content, not the screen */
   footer {
-    margin-top: auto !important;
-    margin-bottom: 0 !important;
-    padding: 40px 20px !important;
-    flex-shrink: 0;
-  }
-
-  /* --- 2. Compact Two-Line Navbar --- */
-  nav {
-    top: 10px !important;
-    width: 94% !important;
-    padding: 10px 15px !important;
-    gap: 4px !important; /* Extremely tight row spacing */
-    flex-direction: column !important;
-    border-radius: 20px !important;
-    margin: 0 auto !important;
-  }
-
-  .nav-left {
+    position: relative;
     width: 100%;
-    justify-content: space-between;
-    gap: 0 !important;
+    margin-top: 100px !important; /* Keeps it away from content */
+    padding-bottom: env(safe-area-inset-bottom) !important; /* Adds padding for iPhone home bars */
+    background: #000 !important;
+    z-index: 10;
+  }
+
+  /* --- 2. FIXED NAVBAR LOCK --- */
+  /* This ensures the navbar stays at the top of the screen even if the page content shifts */
+  nav {
+    position: fixed !important; /* Changed from sticky to fixed to prevent it "following" the bounce */
+    top: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 94% !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    padding: 10px 15px !important;
   }
 
   .nav-links {
-    width: 100%;
+    gap: 12px !important;
     justify-content: center !important;
-    gap: 10px !important;
-    flex-wrap: wrap;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 6px;
+    padding-top: 5px;
+    border-top: 1px solid rgba(255,255,255,0.1);
   }
 
-  .nav-links a {
-    font-size: 0.7rem !important;
-    white-space: nowrap;
-  }
-
-  .logo img {
-    height: 24px !important;
-  }
-
-  .server-pill {
-    font-size: 0.6rem !important;
-    padding: 3px 8px !important;
-  }
-
-  /* --- 3. Hero & Centering Fixes --- */
+  /* --- 3. HERO OVERLAP & CENTERING FIX --- */
   .hero-inner-split {
+    margin-top: 120px !important; /* High enough to clear the fixed nav */
     flex-direction: column-reverse !important;
-    margin-top: 100px !important; /* Massive buffer so Title is never behind Nav */
     text-align: center !important;
-    gap: 30px !important;
-    padding: 0 20px !important;
   }
 
   .hero-text {
-    align-items: center !important;
-    text-align: center !important;
     display: flex !important;
     flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
   }
 
   .hero-text h1 {
-    font-size: 2.2rem !important;
-    text-align: center !important;
+    font-size: 2rem !important;
     width: 100% !important;
-    margin-bottom: 15px !important;
+    text-align: center !important;
+    background-size: 200% auto !important;
   }
 
   .hero-text p {
     text-align: center !important;
-    margin: 0 auto 30px auto !important;
-    font-size: 0.95rem !important;
-    max-width: 100% !important;
+    padding: 0 10px !important;
+    font-size: 0.9rem !important;
   }
 
-  .hero-image {
-    width: 100% !important;
-    justify-content: center !important;
+  /* --- 4. GRID & PANEL OPTIMIZATION --- */
+  .features-grid, .credits-grid, .vote-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    padding: 0 15px !important;
   }
 
-  .hero-logo-main {
-    max-width: 220px !important;
-  }
-
-  /* --- 4. Content Containers (The "Infinite" look) --- */
-  .page-content {
-    padding-top: 0 !important; /* Handled by Hero margin */
-  }
-
-  .panel, .lb-panel, .credit-card, .feature-card {
+  .panel, .feature-card, .credit-card, .lb-panel {
+    width: auto !important;
     margin: 10px 15px !important;
-    width: calc(100% - 30px) !important;
     padding: 20px !important;
   }
 
-  .features-grid, .credits-grid, .vote-grid {
-    grid-template-columns: 1fr !important; /* Strict single column */
-    gap: 15px !important;
-  }
-
-  /* --- 5. Fix Leaderboard Table Overflow --- */
-  .lb-panel {
-    overflow-x: hidden !important;
-  }
-
+  /* --- 5. TABLE OVERFLOW SAFETY --- */
   table {
     display: block !important;
     overflow-x: auto !important;
-    -webkit-overflow-scrolling: touch;
     width: 100% !important;
   }
 
-  /* --- 6. Interaction Targets (Touch Friendly) --- */
+  /* --- 6. DOCUMENTATION & EMBEDS --- */
+  .doc-embed {
+    height: 50vh !important;
+  }
+
+  /* --- 7. BUTTONS --- */
   .hero-btn {
     width: 100% !important;
-    max-width: 300px !important;
-    padding: 16px !important;
+    max-width: 320px !important;
   }
 
-  .context-menu {
-    width: 90vw !important;
-    left: 5vw !important;
-    bottom: 20px !important;
-    top: auto !important;
-    position: fixed !important;
+  /* --- 8. FOOTER SPACING BUG --- */
+  /* If there is still a gap, this removes the ghost space below images */
+  footer img {
+    display: block;
+    margin-bottom: 15px;
   }
 
-  .context-menu button, .context-menu a {
-    padding: 15px !important;
-    font-size: 1.1rem !important;
-  }
-
-  /* --- 7. Footer Cleanup --- */
   .footer-links {
     flex-direction: column !important;
     gap: 15px !important;
-  }
-
-  .footer-links a {
-    font-size: 0.9rem !important;
-    padding: 5px !important;
   }
 }
