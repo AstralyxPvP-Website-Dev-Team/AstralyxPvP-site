@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstralyxPvP - The Ultimate 1.9 FFA PvP Battlefield</title>
   <meta name="google-site-verification" content="kYWtU-P7VA6R31WMyTMMOKQ2ZHby0qlITXmdnE-xNZA" />
   <meta name="google-site-verification" content="dwWOJSf9PK5NvguaxcjVUYJCZK2Ehc_ZpdgavYEGgcs" />
   <meta name="google-site-verification" content="5x4oetuwUCYoInPARiV5ebPUEToLUzxiI1MfjvNc128" />
@@ -10,6 +11,7 @@
   <meta name="description" content="Join AstralyxPvP, the premier India-based 1.9+ FFA PvP server. Experience fast-paced combat, skill-based battles, ELO Live Leaderboards, crates, and a thriving community. Prove your dominance in the arena today!" />
   <meta name="keywords" content="Minecraft PvP server, 1.9 PvP, FFA PvP, India Minecraft server, ELO Leaderboard, Minecraft crates, skill-based PvP, free Minecraft server, cracked Minecraft server, astralyx, astralyxpvp" />
   <meta name="author" content="Frostrax (Owner), IndianCoder3 &amp; DreamLong (NebulaGames Developers)" />
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -39,10 +41,10 @@
 
   <link rel="stylesheet" href="Style/style.css">
 
-  <!-- Preload the main script so it starts fetching while HTML parses -->
+  <!-- preload main script so it starts fetching while HTML parses -->
   <link rel="preload" href="Script/script.js" as="script">
 
-  <!-- Small inline CSS to ensure the original 512x512 image displays at 450x450 without stretching -->
+  <!-- inline CSS to ensure the 512x512 source renders at 450x450 without stretching -->
   <style>
     .hero-logo-main {
       width: 450px;
@@ -50,7 +52,6 @@
       object-fit: contain;
       display: block;
     }
-    /* optional: ensure responsive behavior on small screens */
     @media (max-width: 520px) {
       .hero-logo-main {
         width: 220px;
@@ -68,7 +69,7 @@
     <section class="hero">
       <div class="hero-inner-split">
         <div class="hero-image">
-          <!-- keep the original image file; explicitly sized to 450x450 to avoid stretching -->
+          <!-- original image file kept; explicit size to 450x450 -->
           <img src="Assets/web-app-manifest-512x512.png" alt="AstralyxPvP Logo" class="hero-logo-main" width="450" height="450">
         </div>
 
@@ -146,7 +147,7 @@
     </div>
   </footer>
 
-  <!-- Main script loaded after HTML parse; script.js is preloaded above so fetch starts earlier -->
+  <!-- script is preloaded above and executed after parsing -->
   <script src="Script/script.js" defer></script>
 </body>
 </html>
