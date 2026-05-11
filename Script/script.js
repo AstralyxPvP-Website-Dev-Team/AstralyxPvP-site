@@ -122,7 +122,7 @@
         if (!select) return;
 
         try {
-            const res = await fetch(`${API_BASE}?gamemode=true`);
+            const res = await fetch(`${API_BASE}?gamemodes=true`);
             const data = await res.json();
             const gms = data?.gamemodes || [];
 
