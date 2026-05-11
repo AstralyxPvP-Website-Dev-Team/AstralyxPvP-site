@@ -32,7 +32,7 @@
   /* --- 2. FIXED NAVBAR LOCK --- */
   /* This ensures the navbar stays at the top of the screen even if the page content shifts */
   nav {
-    position: fixed !important; /* Changed from sticky to fixed to prevent it "following" the bounce */
+    position: sticky !important; 
     top: 10px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
@@ -42,6 +42,8 @@
     flex-direction: column !important;
     gap: 4px !important;
     padding: 10px 15px !important;
+   overflow: hidden; /* Clips anything pushing outside the rounded corners */
+   box-sizing: border-box; /* Ensures padding doesn't add to the width */
   }
 
   .nav-links {
@@ -50,7 +52,13 @@
     padding-top: 5px;
     border-top: 1px solid rgba(255,255,255,0.1);
   }
-
+  nav .links-container { 
+    display: flex;
+    flex-wrap: wrap; /* This is the magic property */
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+  }
   /* --- 3. HERO OVERLAP & CENTERING FIX --- */
   .hero-inner-split {
     margin-top: 120px !important; /* High enough to clear the fixed nav */
