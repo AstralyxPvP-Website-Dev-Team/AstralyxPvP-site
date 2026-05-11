@@ -47,16 +47,18 @@
             const html = await response.text();
             container.innerHTML = html;
 
+            // Active link logic
             const currentPath = window.location.pathname.split("/").pop() || "index.html";
             container.querySelectorAll('.nav-links a').forEach(link => {
                 if(link.getAttribute('href') === currentPath) link.classList.add('active');
             });
 
+            // Adjust main content padding so it's not hidden under a fixed nav
             const nav = container.querySelector('nav');
             const mainContent = document.querySelector('.page-content');
             if (nav && mainContent) {
                 requestAnimationFrame(() => {
-                    mainContent.style.marginTop = nav.offsetHeight + "px";
+                    mainContent.style.paddingTop = `${nav.offsetHeight}px`;
                 });
             }
 
@@ -66,30 +68,33 @@
         }
     }
     async function initFooter() {
-        const container = document.getElementById('footer');
+        const container = document.getElementById('footer'); // Ensure your HTML has <div id="footer"></div>
         if (!container) return;
-      
+    
         try {
             const response = await fetch('https://astralyxpvp.pages.dev/Assets/footer.html');
-            if (!response.ok) throw new Error('Footer missing');
+            if (!response.ok) throw new Error('Footer asset could not be fetched');
             
             const html = await response.text();
             container.innerHTML = html;
 
             const currentPath = window.location.pathname.split("/").pop() || "index.html";
+            
             container.querySelectorAll('.footer-links a').forEach(link => {
-                if(link.getAttribute('href') === currentPath) link.classList.add('active');
+                const href = link.getAttribute('href');
+                if (href === currentPath || (currentPath === 'index.html' && href === '/')) {
+                    link.classList.add('active');
+                }
             });
+            const yearEl = container.querySelector('#year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-            const footer = container.querySelector('footer');
-            const mainContent = document.querySelector('.page-content');
-            if (footer && mainContent) {
-                requestAnimationFrame(() => {
-                    mainContent.style.marginTop = nav.offsetHeight + "px";
-                });
-            }
         } catch (error) {
             console.error('Footer error:', error);
+            // Fallback content in case the fetch fails
+            container.innerHTML = `<footer style="text-align:center; padding:20px; color:var(--muted);">
+                &copy; ${new Date().getFullYear()} AstralyxPvP. All rights reserved.
+            </footer>`;
         }
     }
 
@@ -171,14 +176,26 @@
 
     document.body.classList.add('page-enter');
     
-    await initNavbar();      
-    await initLeaderboard(); 
 
     setInterval(updateNavStatus, 20000);
 
+    document.body.classList.add('page-enter');
+    
+    Promise.all([
+        initNavbar(),
+        initFooter(),
+        initLeaderboard()
+    ]).catch(err => console.error("Init failed:", err));
+
+    // Refresh server status every 20s
+    setInterval(updateNavStatus, 20000);
+
+    // Smooth Page Transitions
     document.addEventListener('click', e => {
         const a = e.target.closest('a');
-        if(!a || a.target === '_blank' || a.href.startsWith('http') || a.hash) return;
+        // Ignore external links, target="_blank", or anchors
+        if(!a || a.target === '_blank' || a.hostname !== window.location.hostname || a.hash) return;
+        
         e.preventDefault();
         document.body.classList.add('page-exit');
         setTimeout(() => { window.location.href = a.href; }, 180);
