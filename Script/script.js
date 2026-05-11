@@ -65,6 +65,33 @@
             console.error('Navbar error:', error);
         }
     }
+    async function initFooter() {
+        const container = document.getElementById('footer');
+        if (!container) return;
+      
+        try {
+            const response = await fetch('https://astralyxpvp.pages.dev/Assets/footer.html');
+            if (!response.ok) throw new Error('Footer missing');
+            
+            const html = await response.text();
+            container.innerHTML = html;
+
+            const currentPath = window.location.pathname.split("/").pop() || "index.html";
+            container.querySelectorAll('.footer-links a').forEach(link => {
+                if(link.getAttribute('href') === currentPath) link.classList.add('active');
+            });
+
+            const footer = container.querySelector('footer');
+            const mainContent = document.querySelector('.page-content');
+            if (footer && mainContent) {
+                requestAnimationFrame(() => {
+                    mainContent.style.marginTop = nav.offsetHeight + "px";
+                });
+            }
+        } catch (error) {
+            console.error('Footer error:', error);
+        }
+    }
 
     async function updateNavStatus() {
         const el = document.getElementById('nav-status');
