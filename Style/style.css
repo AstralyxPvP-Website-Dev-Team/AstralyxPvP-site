@@ -774,7 +774,7 @@ footer {
   border-top: 1px solid var(--border);
   margin-top: auto;
   position: relative;
-  /* overflow: hidden;*/
+  overflow: hidden;
   line-height: 1.5;
 }
 
